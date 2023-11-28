@@ -45,13 +45,13 @@ class Recipe {
             RETURNING 
             api_uri, title, url, ingredients, instructions, username`);
 
+        if(!result.rows[0]) throw new NotFoundError(`No recipes in database`);
+
         return result.rows;
     }
 
     /** Find all recipes tied to a specific user from database
-     *
-     *
-     * @returns
+     * @returns all recipes related
      */
 
     static async queryByUser(username){
@@ -60,15 +60,51 @@ class Recipe {
             [username]
         );
 
+        if(!result.rows[0]) throw new NotFoundError(`This user has no recipes`);
+
         return result.rows;
     }
 
-    static async update(){
+    static async update(recipe_title, data) {
+        const {setCols, values} = sqlForPartialUpdate(
+            data,
+            {
+                api_uri: "api_uri",
+                title: "title",
+                url: "url",
+                ingredients: "ingredients",
+                instructions: "instructions"
+            }
+        )
 
+        const querySql = `UPDATE recipes
+                            SET ${setCols}
+                            WHERE title = ${recipe_title}
+                            RETURNING api_uri, title, url, ingredients, instructions`;
+
+        const result = await db.query(querySql, [...values, recipe_title]);
+        const recipe = result.rows[0];
+
+        if(!recipe) throw new NotFoundError(`No recipe found: ${recipe_title}`);
+
+        return recipe;
     }
 
-    static async remove(){
+    /** Delete given recipe from database based on the recipe's title
+     *  returns undefined.
+     *
+     * Throws NotFoundError if recipe not found.
+     **/
+    static async remove(recipe_title){
+        const result = await db.query(
+            `DELETE
+            FROM recipes
+            WHERE title = $1`, [recipe_title]
+        );
 
+        const recipe = result.rows[0];
+
+        if(!recipe) throw new NotFoundError(`No recipe: ${recipe_title}`);
     }
 
 }

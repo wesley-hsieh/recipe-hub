@@ -117,7 +117,7 @@ router.delete("/:username", ensureCorrectUserOrAdmin, async function (req, res, 
 router.post("/:username/recipes/:id", ensureCorrectUserOrAdmin, async function (req, res, next) {
     try {
         const recipeId = +req.params.id;
-        await User.applyToJob(req.params.username, recipeId);
+        await User.addFavorite(req.params.username, recipeId);
         return res.json({ favorited: recipedId });
     } catch (err) {
         return next(err);

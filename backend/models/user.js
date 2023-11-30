@@ -139,12 +139,12 @@ class User {
 
         if (!user) throw new NotFoundError(`No user: ${username}`);
 
-        const userApplicationsRes = await db.query(
-            `SELECT a.job_id
-           FROM applications AS a
-           WHERE a.username = $1`, [username]);
+        const userRecipesRes = await db.query(
+            `SELECT r.id
+           FROM recipes AS r
+           WHERE r.username = $1`, [username]);
 
-        user.applications = userApplicationsRes.rows.map(a => a.job_id);
+        user.recipes = userRecipesRes.rows.map(r => r.id);
         return user;
     }
 
@@ -212,7 +212,6 @@ class User {
     }
 
     /** Add a favorite to user.
-     *
      */
 
     static async addFavorite(username, recipe_id){

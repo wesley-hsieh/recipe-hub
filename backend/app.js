@@ -2,9 +2,16 @@ const express = require("express");
 const {NotFoundError} = require("./expressError");
 const cors = require("cors");
 
-const app = express;
+const authRoutes = require("./routes/auth");
+const recipeRoutes = require("./routes/recipes");
+const userRoutes = require("./routes/users");
+
+const app = express();
 
 app.use(express.json());
+
+/** Initialize routes*/
+app.use('/recipes', recipeRoutes);
 
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {

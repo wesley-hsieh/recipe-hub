@@ -126,4 +126,4 @@ router.post("/:username/recipes/:id", ensureCorrectUserOrAdmin, async function (
 
 
 
-export default router;
+module.exports = router;

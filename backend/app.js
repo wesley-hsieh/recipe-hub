@@ -12,6 +12,8 @@ app.use(express.json());
 
 /** Initialize routes*/
 app.use('/recipes', recipeRoutes);
+app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
 
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {

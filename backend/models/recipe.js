@@ -107,6 +107,22 @@ class Recipe {
         if(!recipe) throw new NotFoundError(`No recipe: ${recipe_title}`);
     }
 
+    /** Generic get query from database
+     * Assumption of param entered being the recipe title
+     *
+     * @param param
+     * @returns {Promise<void>}
+     */
+
+    static async get(param){
+        const result = await db.query(
+            `SELECT * FROM recipes WHERE title = $1`, [param]
+        );
+
+        const recipes = result.rows;
+
+        return recipes;
+    }
 }
 
-export default Recipe;
+module.exports = Recipe;

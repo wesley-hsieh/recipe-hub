@@ -38,6 +38,21 @@ router.post("/", ensureLoggedIn, async function (req, res, next) {
     }
 });
 
+/** GET
+ * retrieves all recipes from database
+ *
+ * */
+
+router.get("/", async function(req, res, next){
+    try{
+        const result = await Recipe.findAll();
+        const recipes = result.rows
+        return res.json({recipes});
+    }catch(err){
+        return next(err);
+    }
+})
+
 /** GET /[title]  =>  { recipe }
  *
  *  Recipe is { title, api_uri, url, ingredients, instructions, username}

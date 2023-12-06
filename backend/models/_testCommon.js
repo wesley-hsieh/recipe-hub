@@ -29,7 +29,7 @@ async function commonBeforeAll(){
     `);
 
     testRecipeIds.splice(0, 0, ...recipeResults.rows.map(r=> r.id));
-    console.log(testRecipeIds);
+    // console.log(testRecipeIds);
 
     await db.query(`
         INSERT INTO favorites (username, recipe_id)

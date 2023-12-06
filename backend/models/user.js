@@ -144,7 +144,7 @@ class User {
            FROM recipes AS r
            WHERE r.username = $1`, [username]);
 
-        user.recipes = userRecipesRes.rows.map(r => r.id);
+        user.recipes = userRecipesRes.rows.map(r => r.title);
         return user;
     }
 

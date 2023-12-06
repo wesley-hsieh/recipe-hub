@@ -17,7 +17,7 @@ async function queryAPI(query){
 
     try{
         const response = await axios.get(url, config);
-        console.log(response.data.hits.length);
+        // console.log(response.data.hits.length);
         return response.data.hits;
     }catch(error){
         throw new BadRequestError();

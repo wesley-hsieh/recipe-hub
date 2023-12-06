@@ -41,9 +41,8 @@ class Recipe {
 
     static async findAll(){
         const result = await db.query(
-            `SELECT * FROM recipes 
-            RETURNING 
-            api_uri, title, url, ingredients, instructions, username`);
+            `SELECT api_uri, title, url, ingredients, instructions, username FROM recipes`
+        );
 
         if(!result.rows[0]) throw new NotFoundError(`No recipes in database`);
 
@@ -66,7 +65,7 @@ class Recipe {
     }
 
     static async update(recipe_title, data) {
-        const {setCols, values} = sqlForPartialUpdate(
+        const { setCols, values } = sqlForPartialUpdate(
             data,
             {
                 api_uri: "api_uri",
@@ -75,20 +74,21 @@ class Recipe {
                 ingredients: "ingredients",
                 instructions: "instructions"
             }
-        )
+        );
 
         const querySql = `UPDATE recipes
-                            SET ${setCols}
-                            WHERE title = ${recipe_title}
-                            RETURNING api_uri, title, url, ingredients, instructions`;
+                      SET ${setCols}
+                      WHERE title = $${values.length + 1}
+                      RETURNING api_uri, title, url, ingredients, instructions`;
 
         const result = await db.query(querySql, [...values, recipe_title]);
         const recipe = result.rows[0];
 
-        if(!recipe) throw new NotFoundError(`No recipe found: ${recipe_title}`);
+        if (!recipe) throw new NotFoundError(`No recipe found: ${recipe_title}`);
 
         return recipe;
     }
+
 
     /** Delete given recipe from database based on the recipe's title
      *  returns undefined.
@@ -98,14 +98,17 @@ class Recipe {
     static async remove(recipe_title){
         const result = await db.query(
             `DELETE
-            FROM recipes
-            WHERE title = $1`, [recipe_title]
+        FROM recipes
+        WHERE title = $1`, [recipe_title]
         );
 
-        const recipe = result.rows[0];
+        if (result.rowCount === 0) {
+            throw new NotFoundError(`No recipe: ${recipe_title}`);
+        }
 
-        if(!recipe) throw new NotFoundError(`No recipe: ${recipe_title}`);
+        return undefined;
     }
+
 
     /** Generic get query from database
      * Assumption of param entered being the recipe title
@@ -116,7 +119,8 @@ class Recipe {
 
     static async get(param){
         const result = await db.query(
-            `SELECT * FROM recipes WHERE title = $1`, [param]
+            `SELECT api_uri, title, url, ingredients, instructions, username
+            FROM recipes WHERE title = $1`, [param]
         );
 
         const recipes = result.rows;

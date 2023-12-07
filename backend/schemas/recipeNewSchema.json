@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://our.company.com/recipeNew.schema.json",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "ingredients": {
+      "type": "string"
+    },
+    "instructions": {
+      "type": "string"
+    },
+    "api_uri": {
+      "type": "string",
+      "format": "uri"
+    },
+    "username": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "title",
+    "ingredients",
+    "username"
+  ]
+}

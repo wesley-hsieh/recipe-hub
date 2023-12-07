@@ -1,6 +1,6 @@
 "use strict";
 
-/** Routes for users*/
+/** NavRoutes for users*/
 
 const express = require('express');
 const jsonschema = require("jsonschema");

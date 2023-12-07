@@ -1,6 +1,6 @@
 "use strict";
 
-/** Routes for recipes*/
+/** NavRoutes for recipes*/
 
 const jsonschema = require("jsonschema");
 const express = require("express");

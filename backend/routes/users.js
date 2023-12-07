@@ -118,7 +118,7 @@ router.post("/:username/recipes/:id", ensureCorrectUserOrAdmin, async function (
     try {
         const recipeId = +req.params.id;
         await User.addFavorite(req.params.username, recipeId);
-        return res.json({ favorited: recipedId });
+        return res.json({ favorited: recipeId });
     } catch (err) {
         return next(err);
     }

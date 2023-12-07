@@ -1,6 +1,7 @@
 "use strict";
 
 const db = require("../db");
+const Recipe = require("../models/recipe");
 const bcrypt = require("bcrypt");
 const { sqlForPartialUpdate } = require("../helpers/sql");
 const {

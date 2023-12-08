@@ -16,17 +16,17 @@ class Recipe {
      * Throws BadRequestError if company already in database.
      * */
 
-    static async create({api_uri, title, url, ingredients, instructions, username}){
+    static async create({title, url, ingredients, instructions, username}){
         const checkDuplicate = await db.query(`SELECT title FROM recipes WHERE title= $1`, [title]);
 
         if (checkDuplicate.rows[0]) throw new BadRequestError(`Duplicate recipe: ${title}`);
 
         const result = await db.query(
             `INSERT INTO recipes 
-            (api_uri, title, url, ingredients, instructions, username) 
+            (title, url, ingredients, instructions, username) 
             VALUES ($1, $2, $3, $4, $5, $6)
-            RETURNING api_uri, title, url, ingredients, instructions, username`,
-            [api_uri, title, url, ingredients, instructions, username]
+            RETURNING title, url, ingredients, instructions, username`,
+            [ title, url, ingredients, instructions, username]
         )
 
         const recipe = result.rows[0];
@@ -41,7 +41,7 @@ class Recipe {
 
     static async findAll(){
         const result = await db.query(
-            `SELECT api_uri, title, url, ingredients, instructions, username FROM recipes`
+            `SELECT title, url, ingredients, instructions, username FROM recipes`
         );
 
         if(!result.rows[0]) throw new NotFoundError(`No recipes in database`);
@@ -68,7 +68,6 @@ class Recipe {
         const { setCols, values } = sqlForPartialUpdate(
             data,
             {
-                api_uri: "api_uri",
                 title: "title",
                 url: "url",
                 ingredients: "ingredients",
@@ -119,7 +118,7 @@ class Recipe {
 
     static async get(param){
         const result = await db.query(
-            `SELECT api_uri, title, url, ingredients, instructions, username
+            `SELECT title, url, ingredients, instructions, username
             FROM recipes WHERE title = $1`, [param]
         );
 

@@ -14,6 +14,7 @@ CREATE TABLE recipes (
     url TEXT,
     ingredients TEXT NOT NULL,
     instructions TEXT,
+    image TEXT,
     username VARCHAR(25)
       REFERENCES users ON DELETE CASCADE
 );

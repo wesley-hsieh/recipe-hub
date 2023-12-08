@@ -1,0 +1,24 @@
+/* RecipeList.css */
+
+/* Style for the overall container */
+.recipe-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Style for individual RecipeCard container */
+.recipe-card-container {
+    width: 700px; /* Set your preferred width */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.recipe-card-container:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

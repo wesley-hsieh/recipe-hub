@@ -4,16 +4,21 @@ import "./RecipeList.css"; // Import your CSS file
 
 function RecipeList({ recipes }) {
     console.log(recipes);
+    for(let recipe of recipes){
+        console.log(recipe);
+        console.log(recipe.title);
+        console.log(recipe.image);
+    }
 
     return (
         <div className="recipe-list">
             {recipes.map((recipe, index) => (
                 <div key={index} className="recipe-card-container">
                     <RecipeCard
-                        image={recipe.recipe.image}
-                        title={recipe.recipe.label}
-                        ingredients={recipe.recipe.ingredientLines}
-                        url={recipe.recipe.url}
+                        image={recipe.image ? recipe.image : null}
+                        title={recipe.label}
+                        ingredients={recipe.ingredientLines ? recipe.ingredientLines : recipe.ingredients.split(",")}
+                        url={recipe.url ? recipe.url : null}
                     />
                 </div>
             ))}

@@ -10,7 +10,7 @@ CREATE TABLE users (
 
 CREATE TABLE recipes (
     id SERIAL PRIMARY KEY,
-    title TEXT NOT NULL,
+    label TEXT NOT NULL,
     url TEXT,
     ingredients TEXT NOT NULL,
     instructions TEXT,

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./RecipeCard.css"; // Import your CSS file
 import {FaHeart} from "react-icons/fa";
+import noImageFound from "../static/no-image-available.png"
 
 function RecipeCard({ image, title, ingredients, url }) {
     const maxIngredientsToShow = 3; // Set the number of ingredients to show initially
@@ -45,7 +46,11 @@ function RecipeCard({ image, title, ingredients, url }) {
 
     return (
         <div className="recipe-card">
-            <img src={image} alt={title} className="recipe-image" />
+            {image ? (
+                <img src={image} alt={title} className="recipe-image" />
+            ) : (
+                <img src={noImageFound} alt="No Image Available" className="recipe-image" />
+            )}
             <div className="recipe-details">
                 <button className="favorite-button" onClick={toggleFavorite}>
                     <FaHeart color={isFavorite ? "red" : "grey"} /> {/* Heart icon */}

@@ -20,7 +20,7 @@ VALUES ('testuser',
          'test@user.com',
          FALSE);
 
-INSERT INTO recipes (title, url, ingredients, instructions, image, username)
+INSERT INTO recipes (label, url, ingredients, instructions, image, username)
 VALUES ('Chocolate Bar Brownies',
        NULL,
        '1 cup butter, 4 oz unsweetened chocolate, 2 cups sugar, 4 eggs, 2 tsp vanilla, 1 1/2 cups all-purpose flour',

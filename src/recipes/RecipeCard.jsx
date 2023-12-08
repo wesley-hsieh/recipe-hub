@@ -1,16 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
+import "./RecipeCard.css"; // Import your CSS file
 
-function RecipeCard({image, title, ingredients, url}){
-    // console.log(image, title, ingredients, url);
+function RecipeCard({ image, title, ingredients, url }) {
+    const maxIngredientsToShow = 3; // Set the number of ingredients to show initially
+    const [showAllIngredients, setShowAllIngredients] = useState(false);
+
+    const toggleIngredients = () => {
+        setShowAllIngredients(!showAllIngredients);
+    };
+
+    const renderIngredients = () => {
+        if (!showAllIngredients && ingredients.length > maxIngredientsToShow) {
+            return (
+                <>
+                    {ingredients.slice(0, maxIngredientsToShow).map((ingredient, index) => (
+                        <li key={index}>{ingredient}</li>
+                    ))}
+                    <button className="show-more-button" onClick={toggleIngredients}>
+                        Show More
+                    </button>
+                </>
+            );
+        } else {
+            return (
+                <>
+                    {ingredients.map((ingredient, index) => (
+                        <li key={index}>{ingredient}</li>
+                    ))}
+                    {ingredients.length > maxIngredientsToShow && (
+                        <button className="show-more-button" onClick={toggleIngredients}>
+                            Show Less
+                        </button>
+                    )}
+                </>
+            );
+        }
+    };
 
     return (
-        <div id={title}>
-            <img src={image}></img>
-            <p>{title}</p>
-            <p>{ingredients}</p>
-            <p>{url}</p>
+        <div className="recipe-card">
+            <img src={image} alt={title} className="recipe-image" />
+            <div className="recipe-details">
+                <h2 className="recipe-title">{title}</h2>
+                <ul className="ingredient-list">{renderIngredients()}</ul>
+                <a href={url} className="recipe-link" target="_blank" rel="noopener noreferrer">
+                    View Recipe
+                </a>
+            </div>
         </div>
-    )
+    );
 }
 
 export default RecipeCard;

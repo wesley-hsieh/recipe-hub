@@ -1,13 +1,14 @@
-import React, {useState} from "react";
+import React from "react";
 import RecipeCard from "./RecipeCard";
+import "./RecipeList.css"; // Import your CSS file
 
-function RecipeList({recipes}){
+function RecipeList({ recipes }) {
     console.log(recipes);
 
     return (
-        <div>
-            {recipes.map(recipe => (
-                <div>
+        <div className="recipe-list">
+            {recipes.map((recipe, index) => (
+                <div key={index} className="recipe-card-container">
                     <RecipeCard
                         image={recipe.recipe.image}
                         title={recipe.recipe.label}
@@ -17,8 +18,7 @@ function RecipeList({recipes}){
                 </div>
             ))}
         </div>
-    )
+    );
 }
-
 
 export default RecipeList;

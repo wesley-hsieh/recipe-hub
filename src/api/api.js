@@ -1,14 +1,22 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+const BASE_URL =  process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
 class RecipeAPI{
     static token;
+
+    /** */
+    static async preCheck(){
+        if(!RecipeAPI.token){
+            console.debug("no token");
+        }
+    }
 
     static async request(endpoint, data = {}, method = "get") {
         console.debug("API Call:", endpoint, data, method);
 
         const url = `${BASE_URL}/${endpoint}`;
+        // console.debug("request urL: ", url);
         const headers = { Authorization: `Bearer ${RecipeAPI.token}` };
         const params = (method === "get")
             ? data
@@ -17,9 +25,9 @@ class RecipeAPI{
         try {
             return (await axios({ url, method, data, params, headers })).data;
         } catch (err) {
-            console.error("API Error:", err.response);
-            let message = err.response.data.error.message;
-            throw Array.isArray(message) ? message : [message];
+            console.error("API Error:", err);
+            // let message = err.response.data.error.message;
+            // throw Array.isArray(message) ? message : [message];
         }
     }
 
@@ -37,8 +45,12 @@ class RecipeAPI{
 
     /** Get a recipe based on a certain query */
     static async queryRecipes(name) {
-        let res = await this.request("recipes", { name });
-        return res.recipes;
+        console.debug("in queryRecipes: ", name);
+        let res = await this.request(`recipes/${name}`);
+        console.log(res);
+
+        const recipes = [...res.queryRecipes, ...res.recipe];
+        return {recipes: recipes};
     }
 
     /** Add a recipe to a user's favorites */

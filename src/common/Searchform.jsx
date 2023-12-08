@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import RecipeAPI from "../api/api";
+import RecipeList from "../recipes/RecipeList";
 
 function Searchform(){
     const [searchTerm, setSearchTerm] = useState("");
@@ -19,6 +20,7 @@ function Searchform(){
     }
 
     function handleChange(evt) {
+        console.debug("searchTerm handleChange");
         setSearchTerm(evt.target.value);
     }
 
@@ -39,10 +41,17 @@ function Searchform(){
             </div>
             <div>
                 <p>recipes here</p>
-                {recipes.map(recipe => (
-                    //recipe element here
-                    <p>{recipe.recipe.label}</p>
-                ))}
+                {/*{recipes.map(recipe => (*/}
+                {/*    //recipe element here*/}
+                {/*    <div>*/}
+                {/*        <img src={recipe.recipe.image}></img>*/}
+                {/*        <p>{recipe.recipe.label}</p>*/}
+                {/*        <p> {recipe.recipe.ingredientLines}</p>*/}
+                {/*        <p> {recipe.recipe.url}</p>*/}
+                {/*        <p> {recipe.recipe.uri}</p>*/}
+                {/*    </div>*/}
+                {/*))}*/}
+                <RecipeList recipes={recipes}/>
             </div>
         </div>
     )

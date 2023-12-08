@@ -1,6 +1,7 @@
 /* RecipeCard.css */
 
 .recipe-card {
+    position:relative;
     display: flex;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -50,4 +51,13 @@
 
 .recipe-link:hover {
     text-decoration: underline;
+}
+
+.favorite-button {
+    position: absolute;
+    top: 10px; /* Adjust top position */
+    right: 10px; /* Adjust right position */
+    background: transparent;
+    border: none;
+    cursor: pointer;
 }

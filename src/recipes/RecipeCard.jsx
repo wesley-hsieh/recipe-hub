@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import "./RecipeCard.css"; // Import your CSS file
+import {FaHeart} from "react-icons/fa";
 
 function RecipeCard({ image, title, ingredients, url }) {
     const maxIngredientsToShow = 3; // Set the number of ingredients to show initially
     const [showAllIngredients, setShowAllIngredients] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(false);
 
     const toggleIngredients = () => {
         setShowAllIngredients(!showAllIngredients);
     };
+
+    const toggleFavorite = () => {
+        setIsFavorite(!isFavorite);
+    }
 
     const renderIngredients = () => {
         if (!showAllIngredients && ingredients.length > maxIngredientsToShow) {
@@ -41,6 +47,9 @@ function RecipeCard({ image, title, ingredients, url }) {
         <div className="recipe-card">
             <img src={image} alt={title} className="recipe-image" />
             <div className="recipe-details">
+                <button className="favorite-button" onClick={toggleFavorite}>
+                    <FaHeart color={isFavorite ? "red" : "grey"} /> {/* Heart icon */}
+                </button>
                 <h2 className="recipe-title">{title}</h2>
                 <ul className="ingredient-list">{renderIngredients()}</ul>
                 <a href={url} className="recipe-link" target="_blank" rel="noopener noreferrer">

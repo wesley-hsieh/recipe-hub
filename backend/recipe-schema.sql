@@ -10,7 +10,6 @@ CREATE TABLE users (
 
 CREATE TABLE recipes (
     id SERIAL PRIMARY KEY,
-    api_uri TEXT,
     title TEXT NOT NULL,
     url TEXT,
     ingredients TEXT NOT NULL,

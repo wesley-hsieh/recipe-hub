@@ -44,10 +44,12 @@ router.post("/", ensureLoggedIn, async function (req, res, next) {
  * */
 
 router.get("/", async function(req, res, next){
+    // console.log("/recipes");
     try{
         const result = await Recipe.findAll();
-        const recipes = result.rows
-        return res.json({recipes});
+        // const recipes = result.rows
+        // console.log("result.rows", result);
+        return res.json({result});
     }catch(err){
         return next(err);
     }
@@ -65,7 +67,7 @@ router.get("/:handle", async function (req, res, next) {
         const recipe = await Recipe.get(req.params.handle);
 
         const queryRecipes = await queryAPI(req.params.handle);
-        console.log(queryRecipes);
+        // console.log("queryRecipes: ", queryRecipes);
 
         return res.json({ recipe, queryRecipes });
     } catch (err) {

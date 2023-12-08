@@ -12,7 +12,13 @@ VALUES ('testuser',
         'Test',
         'Admin!',
         'test@admin.com',
-        TRUE);
+        TRUE),
+        ('anonuser',
+         '$2b$12$AZH7virni5jlTTiGgEg4zu3lSvAw68qVEfSIOjJ3RqtbJbdW/Oi5q',
+         'anonymous',
+         'User',
+         'test@user.com',
+         FALSE);
 
 INSERT INTO recipes (api_uri, title, url, ingredients, instructions, username)
 VALUES (null,

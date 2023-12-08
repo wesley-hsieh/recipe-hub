@@ -16,17 +16,17 @@ class Recipe {
      * Throws BadRequestError if company already in database.
      * */
 
-    static async create({title, url, ingredients, instructions, username}){
+    static async create({title, url, ingredients, instructions, image, username}){
         const checkDuplicate = await db.query(`SELECT title FROM recipes WHERE title= $1`, [title]);
 
         if (checkDuplicate.rows[0]) throw new BadRequestError(`Duplicate recipe: ${title}`);
 
         const result = await db.query(
             `INSERT INTO recipes 
-            (title, url, ingredients, instructions, username) 
+            (title, url, ingredients, instructions, image, username) 
             VALUES ($1, $2, $3, $4, $5, $6)
-            RETURNING title, url, ingredients, instructions, username`,
-            [ title, url, ingredients, instructions, username]
+            RETURNING title, url, ingredients, instructions, image, username`,
+            [ title, url, ingredients, instructions, image, username]
         )
 
         const recipe = result.rows[0];
@@ -41,7 +41,7 @@ class Recipe {
 
     static async findAll(){
         const result = await db.query(
-            `SELECT title, url, ingredients, instructions, username FROM recipes`
+            `SELECT title, url, ingredients, instructions, image, username FROM recipes`
         );
 
         if(!result.rows[0]) throw new NotFoundError(`No recipes in database`);
@@ -78,7 +78,7 @@ class Recipe {
         const querySql = `UPDATE recipes
                       SET ${setCols}
                       WHERE title = $${values.length + 1}
-                      RETURNING api_uri, title, url, ingredients, instructions`;
+                      RETURNING title, url, ingredients, instructions, image, username`;
 
         const result = await db.query(querySql, [...values, recipe_title]);
         const recipe = result.rows[0];
@@ -118,7 +118,7 @@ class Recipe {
 
     static async get(param){
         const result = await db.query(
-            `SELECT title, url, ingredients, instructions, username
+            `SELECT title, url, ingredients, instructions, image, username
             FROM recipes WHERE title = $1`, [param]
         );
 

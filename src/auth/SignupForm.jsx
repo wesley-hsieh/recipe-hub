@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "../common/Alert";
+import "../auth/SignupForm.css";
 
 /** Signup form.
  *
@@ -48,7 +49,7 @@ function SignupForm({ signup }) {
     }
 
     return (
-        <div>
+        <div className="signup-form">
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="username">Username:</label>

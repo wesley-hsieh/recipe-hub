@@ -1,17 +1,21 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import RecipeAPI from "../api/api";
 import RecipeList from "../recipes/RecipeList";
+import "../common/SearchForm.css";
 
 function Searchform(){
     const [searchTerm, setSearchTerm] = useState("");
     const [recipes, setRecipes] = useState([]);
 
     async function search(query){
-        // console.debug("in SearchForm");
+        console.debug("in SearchForm");
         let res = await RecipeAPI.queryRecipes(query);
-        // console.log(res.recipes);
+        console.log(res);
 
-        setRecipes(res.recipes);
+        const recipes = res.recipes.map(recipe => recipe.recipe);
+
+        // setRecipes(res.recipes);
+        setRecipes(recipes);
     }
 
     function handleSubmit(evt){
@@ -26,31 +30,21 @@ function Searchform(){
 
     return (
         <div>
-            <div>
+            <div className="search-form-container">
                 <form onSubmit={handleSubmit}>
                     <input
+                        className="search-input"
                         name="searchTerm"
                         placeholder="Enter search term.."
                         value={searchTerm}
                         onChange={handleChange}
                     />
-                    <button type="submit" className="btn btn-lg btn-primary">
+                    <button type="submit" className="submit-button">
                         Submit
                     </button>
                 </form>
             </div>
             <div>
-                <p>recipes here</p>
-                {/*{recipes.map(recipe => (*/}
-                {/*    //recipe element here*/}
-                {/*    <div>*/}
-                {/*        <img src={recipe.recipe.image}></img>*/}
-                {/*        <p>{recipe.recipe.label}</p>*/}
-                {/*        <p> {recipe.recipe.ingredientLines}</p>*/}
-                {/*        <p> {recipe.recipe.url}</p>*/}
-                {/*        <p> {recipe.recipe.uri}</p>*/}
-                {/*    </div>*/}
-                {/*))}*/}
                 <RecipeList recipes={recipes}/>
             </div>
         </div>

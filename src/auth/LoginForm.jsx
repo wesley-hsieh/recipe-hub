@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "../common/Alert";
+import "../auth/LoginForm.css";
 
 function LoginForm({login}){
     const navigate = useNavigate();
@@ -33,7 +34,7 @@ function LoginForm({login}){
     }
 
     return (
-        <div>
+        <div className="login-form">
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="username">Username:</label>
@@ -57,7 +58,11 @@ function LoginForm({login}){
                 </div>
                 <button type="submit">Login</button>
             </form>
-            {formErrors.length > 0 && <Alert type="danger" messages={formErrors} />}
+            {formErrors.length > 0 && (
+                <div className="error-message">
+                    <Alert type="danger" messages={formErrors} />
+                </div>
+            )}
         </div>
     );
 }

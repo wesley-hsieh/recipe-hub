@@ -14,7 +14,7 @@ function NavBar({logout}){
                     <NavLink to="/recipes">Recipes</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/profile"></NavLink>
+                    <NavLink to="/profile">Profile</NavLink>
                 </li>
                 <li>
                     <Link to="/" onClick={logout}>Logout</Link>

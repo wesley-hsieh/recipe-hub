@@ -5,13 +5,6 @@ const BASE_URL =  process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 class RecipeAPI{
     static token;
 
-    /** */
-    static async preCheck(){
-        if(!RecipeAPI.token){
-            console.debug("no token");
-        }
-    }
-
     static async request(endpoint, data = {}, method = "get") {
         console.debug("API Call:", endpoint, data, method);
 
@@ -41,7 +34,7 @@ class RecipeAPI{
     static async getRecipes(){
         // console.log("GetRecipes");
         let res = await this.request("recipes");
-        // console.log(res);
+        console.log(res.result);
         return res.result;
     }
 
@@ -107,8 +100,6 @@ class RecipeAPI{
         let res = await this.request(`recipes`, data, "post");
         return res;
     }
-
-
 }
 
 export default RecipeAPI;

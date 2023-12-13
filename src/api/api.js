@@ -38,32 +38,26 @@ class RecipeAPI{
         return res.result;
     }
 
-    /** Get a recipe based on a certain query */
+    /** Get a recipe based on a certain query
+     *
+     * Specific endpoint for querying from external Edamam API
+     * */
     static async queryRecipes(name) {
         // console.debug("in queryRecipes: ", name);
-        let res = await this.request(`recipes/${name}`);
+        let res = await this.request(`edamam/${name}`);
         // console.log(res);
 
-        const recipes = [...res.queryRecipes, ...res.recipe];
-        return {recipes: recipes};
+        // const recipes = [...res.queryRecipes, ...res.recipe];
+        return {recipes: res.queryRecipes};
     }
 
     /** Query backend for recipe(s)
-     * Note: hacky solution as the current queryRecipes() function hits an endpoint
-     * that returns both the PostgreSQL results and an EdamamAPI result
-     * The better solution would be to have two different endpoints in the Node.js backend:
-     * one to query from the database, and the other to then query the API and then have the frontend
-     * hit both.
      *
-     * Regardless, the separation of querying JUST the database and the Edamam api is the issue.
-     *
-     * returns SQL results.
+     * Specific endpoint for querying from psql database
      * */
     static async queryBackend(name){
-        //same endpoint as queryRecipes()
         let res = await this.request(`recipes/${name}`);
 
-        //however just return the 'recipe' portion, which corresponds to the psql data.
         return res.recipe;
     }
 

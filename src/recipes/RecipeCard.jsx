@@ -1,15 +1,31 @@
-import React, { useState, useContext } from "react";
+import React, {useState, useContext, useEffect} from "react";
 import "./RecipeCard.css"; // Import your CSS file
 import {FaHeart} from "react-icons/fa";
 import noImageFound from "../static/no-image-available.png"
 import RecipeAPI from "../api/api";
 import UserContext from "../auth/UserContext";
 
-function RecipeCard({ image, api_uri=null, label, ingredients, url }) {
+function RecipeCard({id, image, api_uri=null, label, ingredients, url }) {
     const {currentUser} = useContext(UserContext);
     const maxIngredientsToShow = 3; // Set the number of ingredients to show initially
     const [showAllIngredients, setShowAllIngredients] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
+
+    useEffect(()=> {
+        async function getFavorites(){
+            const {favorites} = await RecipeAPI.queryFavorites(currentUser.username);
+            // console.log("favorites:", favorites);
+            favorites.forEach((favorite) => {
+                // console.log(favorite);
+                // console.log("favorite.id", favorite.id)
+                // console.log("id:", id);
+                if(favorite.recipe_id === id){
+                    setIsFavorite(true);
+                }
+            })
+        }
+        getFavorites();
+    },[]);
 
     const toggleIngredients = () => {
         setShowAllIngredients(!showAllIngredients);
@@ -17,7 +33,7 @@ function RecipeCard({ image, api_uri=null, label, ingredients, url }) {
 
     const toggleFavorite = async() => {
         setIsFavorite(!isFavorite);
-        console.log("toggleFavorite: ", label);
+        // console.log("toggleFavorite: ", label);
 
         //if it isn't a favorite already:
         //add recipe to backend database if not already in there, and then add favorite
@@ -25,8 +41,8 @@ function RecipeCard({ image, api_uri=null, label, ingredients, url }) {
         if(!isFavorite){
             //check if recipe exists in the backend
             const recipe = await RecipeAPI.queryBackend(label);
-            console.log("recipe.length: ", recipe.length);
-            console.log("recipe: ", recipe);
+            // console.log("recipe.length: ", recipe.length);
+            // console.log("recipe: ", recipe);
             //if the recipe isn't in the backend, add it
             if(recipe.length === 0){
                 const newRecipe = await RecipeAPI.addRecipe({
@@ -37,16 +53,16 @@ function RecipeCard({ image, api_uri=null, label, ingredients, url }) {
                     url,
                     username: currentUser.username
                 });
-                console.log("newRecipe: ", newRecipe);
+                // console.log("newRecipe: ", newRecipe);
                 await RecipeAPI.addFavorite(currentUser.username, newRecipe.recipe.id);
             }else{ //just add the favorite
                 await RecipeAPI.addFavorite(currentUser.username, recipe[0].id);
             }
         }else{ //remove the favorite from the database;
             const recipe = await RecipeAPI.queryBackend(label);
-            console.log("trying to remove favorite recipe: ", recipe.rows);
-            console.log("recipeid : ", recipe[0].id);
-            console.log(currentUser);
+            // console.log("trying to remove favorite recipe: ", recipe.rows);
+            // console.log("recipeid : ", recipe[0].id);
+            // console.log(currentUser);
             await RecipeAPI.removeFavorite(currentUser.username, recipe[0].id);
         }
     }

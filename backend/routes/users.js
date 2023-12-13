@@ -124,6 +124,20 @@ router.post("/:username/recipes/:id", ensureCorrectUserOrAdmin, async function (
     }
 });
 
+/** POST, remove a favorite from a user
+ *
+ *
+ * returns deleted favorite
+ * */
 
+router.delete("/:username/recipes/:id", ensureCorrectUserOrAdmin, async function(req, res, next){
+    try{
+        const recipeId = +req.params.id;
+        await User.removeFavorite(req.params.username, recipeId);
+        return res.json({deletedFav: recipeId});
+    }catch(err){
+        return next(err);
+    }
+})
 
 module.exports = router;

@@ -6,6 +6,7 @@ const {authenticateJWT} = require("./middleware/auth");
 const authRoutes = require("./routes/auth");
 const recipeRoutes = require("./routes/recipes");
 const userRoutes = require("./routes/users");
+const edamamRoutes = require('./routes/edamam');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(authenticateJWT);
 app.use('/recipes', recipeRoutes);
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
+app.use('/edamam', edamamRoutes);
 
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {

@@ -3,6 +3,7 @@ import RecipeAPI from "../api/api";
 import Alert from "../common/Alert";
 import UserContext from "../auth/UserContext";
 import "../recipes/RecipeForm.css";
+import {Link} from "react-router-dom";
 
 function RecipeForm(){
     const {currentUser} = useContext(UserContext);
@@ -14,6 +15,7 @@ function RecipeForm(){
         image: "",
     });
     const [formErrors, setFormErrors] = useState([]);
+    const [successMessage, setSuccessMessage] = useState("");
 
     /** Handle form data changing */
     function handleChange(evt) {
@@ -29,7 +31,10 @@ function RecipeForm(){
     async function handleSubmit(evt) {
         evt.preventDefault();
         try {
-
+            let data = {...formData, username: currentUser.username};
+            console.log(data);
+            const newRecipe = await RecipeAPI.addRecipe({...formData, username: currentUser.username});
+            setSuccessMessage("Recipe added successfully!");
         } catch (error) {
             setFormErrors(["An error occurred. Please try again."]);
         }
@@ -38,6 +43,11 @@ function RecipeForm(){
     return (
         <div className="new-recipe-form">
             <h3>Add your own recipe and share it with the world!</h3>
+            {successMessage && (
+                <Link to="/profile">
+                    <Alert type="success" messages={[successMessage]} />
+                </Link>
+            )}
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="label">Recipe Label:</label>

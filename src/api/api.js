@@ -9,7 +9,7 @@ class RecipeAPI{
         console.debug("API Call:", endpoint, data, method);
 
         const url = `${BASE_URL}/${endpoint}`;
-        console.debug("request urL: ", url);
+        // console.debug("request urL: ", url);
         const headers = { Authorization: `Bearer ${RecipeAPI.token}` };
         const params = (method === "get")
             ? data
@@ -98,6 +98,12 @@ class RecipeAPI{
     /** Add a recipe to the database*/
     static async addRecipe(data){
         let res = await this.request(`recipes`, data, "post");
+        return res;
+    }
+
+    /** Check current user's favorite recipes*/
+    static async queryFavorites(username){
+        let res = await this.request(`users/${username}/favorites`, null, "get");
         return res;
     }
 }

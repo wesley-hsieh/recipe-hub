@@ -25,8 +25,8 @@ class Recipe {
             `INSERT INTO recipes 
             (label, url, ingredients, instructions, image, username) 
             VALUES ($1, $2, $3, $4, $5, $6)
-            RETURNING label, url, ingredients, instructions, image, username`,
-            [ label, url, ingredients, instructions, image, username]
+            RETURNING id, label, url, ingredients, instructions, image, username`,
+            [label, url, ingredients, instructions, image, username]
         )
 
         const recipe = result.rows[0];

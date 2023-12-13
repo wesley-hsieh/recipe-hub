@@ -21,6 +21,7 @@ function authenticateJWT(req, res, next) {
         if (authHeader) {
             const token = authHeader.replace(/^[Bb]earer /, "").trim();
             res.locals.user = jwt.verify(token, SECRET_KEY);
+            console.log(res.locals.user);
         }
         return next();
     } catch (err) {
@@ -35,6 +36,7 @@ function authenticateJWT(req, res, next) {
 
 function ensureLoggedIn(req, res, next) {
     try {
+        console.log(res.locals.user);
         if (!res.locals.user) throw new UnauthorizedError();
         return next();
     } catch (err) {

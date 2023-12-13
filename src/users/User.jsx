@@ -1,7 +1,8 @@
 import React, {useContext, useState, useEffect} from "react";
 import UserContext from "../auth/UserContext";
-import RecipeAPI     from "../api/api";
+import RecipeAPI from "../api/api";
 import RecipeList from "../recipes/RecipeList";
+import {Link} from "react-router-dom";
 
 function User(){
     const {currentUser} = useContext(UserContext);
@@ -25,18 +26,14 @@ function User(){
         fetchRecipes();
     }, []);
 
-    function handleEditProfile(){
-        console.debug("edit profile");
-    }
-
     return(
         <div>
             <h2>Welcome, {currentUser.username} !</h2>
+            <Link to="/user/edit">Edit your profile</Link>
             <h3>Your Recipes:</h3>
             <ul>
                 <RecipeList recipes={recipes}/>
             </ul>
-            <button onClick={handleEditProfile}>Edit Profile</button>
         </div>
     )
 }

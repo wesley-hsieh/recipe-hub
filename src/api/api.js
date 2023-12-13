@@ -39,23 +39,49 @@ class RecipeAPI{
 
     /** Get all recipes */
     static async getRecipes(){
+        // console.log("GetRecipes");
         let res = await this.request("recipes");
-        return res.recipes;
+        // console.log(res);
+        return res.result;
     }
 
     /** Get a recipe based on a certain query */
     static async queryRecipes(name) {
-        console.debug("in queryRecipes: ", name);
+        // console.debug("in queryRecipes: ", name);
         let res = await this.request(`recipes/${name}`);
-        console.log(res);
+        // console.log(res);
 
         const recipes = [...res.queryRecipes, ...res.recipe];
         return {recipes: recipes};
     }
 
+    /** Query backend for recipe(s)
+     * Note: hacky solution as the current queryRecipes() function hits an endpoint
+     * that returns both the PostgreSQL results and an EdamamAPI result
+     * The better solution would be to have two different endpoints in the Node.js backend:
+     * one to query from the database, and the other to then query the API and then have the frontend
+     * hit both.
+     *
+     * Regardless, the separation of querying JUST the database and the Edamam api is the issue.
+     *
+     * returns SQL results.
+     * */
+    static async queryBackend(name){
+        //same endpoint as queryRecipes()
+        let res = await this.request(`recipes/${name}`);
+
+        //however just return the 'recipe' portion, which corresponds to the psql data.
+        return res.recipe;
+    }
+
     /** Add a recipe to a user's favorites */
     static async addFavorite(username, id){
         let res = await this.request(`users/${username}/recipes/${id}`, "post");
+    }
+
+    /** Remove a favorite recipe*/
+    static async removeFavorite({username, id}){
+        let res = await this.request(`users/${username}/recipes/${id}`, null, "delete");
     }
 
     /** Get a user's login token based on their username, password*/
@@ -75,6 +101,14 @@ class RecipeAPI{
         let res = await this.request(`users/${username}`, data, "patch");
         return res.user;
     }
+
+    /** Add a recipe to the database*/
+    static async addRecipe(data){
+        let res = await this.request(`recipes`, data, "post");
+        return res;
+    }
+
+
 }
 
 export default RecipeAPI;

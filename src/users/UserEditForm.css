@@ -1,0 +1,54 @@
+/* UserEditForm.css */
+
+/* Form container */
+.user-edit-form {
+    width: 80%; /* Adjust the width as needed */
+    max-width: 600px; /* Set a maximum width for larger screens */
+    margin: 0 auto;
+    padding: 40px; /* Increase padding for more space */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+/* Style for form-group container */
+.user-edit-form .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Increased margin for better separation */
+}
+
+/* Label styles */
+.user-edit-form label {
+    flex: 0 0 120px; /* Set a fixed width for labels */
+    margin-right: 20px; /* Increased margin for better spacing */
+}
+
+/* Input styles */
+.user-edit-form input[type="text"],
+.user-edit-form input[type="password"],
+.user-edit-form input[type="email"] {
+    flex: 1; /* Expand input to fill remaining space */
+    padding: 10px; /* Increased padding for better appearance */
+    margin-bottom: 15px; /* Increased margin-bottom for better separation */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: calc(100% - 12px);
+}
+
+
+/* Button styles */
+.user-edit-form button {
+    padding: 12px 20px; /* Increased padding for better button size */
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 20px; /* Increased margin-top for better spacing */
+}
+
+/* Alert styles */
+.user-edit-form .alert {
+    margin-top: 20px; /* Increased margin-top for better spacing */
+}

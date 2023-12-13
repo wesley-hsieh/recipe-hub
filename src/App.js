@@ -38,7 +38,6 @@ function App() {
                     RecipeAPI.token = token;
                     let currentUser = await RecipeAPI.getCurrentUser(username);
                     setCurrentUser(currentUser);
-                    setRecipes(new Set(currentUser.recipes));
                 } catch (err) {
                     console.error("App loadUserInfo: problem loading", err);
                     setCurrentUser(null);
@@ -83,18 +82,10 @@ function App() {
         setToken(null);
     }
 
-    /** favoriteRecipe()
-     * add a recipe to a user's favorites
-     * if the recipe isn't in the database, saves it in the SQL database for easier querying
-     * */
-    function favoriteRecipe(id){
-
-    }
-
     return (
         <div className="App">
             <BrowserRouter>
-                <UserContext.Provider value={{currentUser, setCurrentUser}}>
+                <UserContext.Provider value={{currentUser, setCurrentUser, recipes, setRecipes}}>
                     <div className="recipeHub">
                         <NavBar logout={logOut}/>
                         <NavRoutes login={login} signup={signup}/>

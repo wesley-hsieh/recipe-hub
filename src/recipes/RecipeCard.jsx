@@ -25,7 +25,8 @@ function RecipeCard({ image, api_uri=null, label, ingredients, url }) {
         if(!isFavorite){
             //check if recipe exists in the backend
             const recipe = await RecipeAPI.queryBackend(label);
-            console.log(recipe.length);
+            console.log("recipe.length: ", recipe.length);
+            console.log("recipe: ", recipe);
             //if the recipe isn't in the backend, add it
             if(recipe.length === 0){
                 const newRecipe = await RecipeAPI.addRecipe({
@@ -36,17 +37,18 @@ function RecipeCard({ image, api_uri=null, label, ingredients, url }) {
                     url,
                     username: currentUser.username
                 });
-                console.log(newRecipe);
+                console.log("newRecipe: ", newRecipe);
                 await RecipeAPI.addFavorite(currentUser.username, newRecipe.recipe.id);
             }else{ //just add the favorite
-                await RecipeAPI.addFavorite(currentUser.username, recipe.recipe.id);
+                await RecipeAPI.addFavorite(currentUser.username, recipe[0].id);
             }
         }else{ //remove the favorite from the database;
             const recipe = await RecipeAPI.queryBackend(label);
-            await RecipeAPI.removeFavorite(currentUser.username, recipe.recipe.id);
+            console.log("trying to remove favorite recipe: ", recipe.rows);
+            console.log("recipeid : ", recipe[0].id);
+            console.log(currentUser);
+            await RecipeAPI.removeFavorite(currentUser.username, recipe[0].id);
         }
-
-
     }
 
     const renderIngredients = () => {

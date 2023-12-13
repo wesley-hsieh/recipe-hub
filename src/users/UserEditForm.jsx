@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import Alert from "../common/Alert";
 import RecipeAPI from "../api/api";
 import UserContext from "../auth/UserContext";
+import "../users/UserEditForm.css";
 
 function UserEditForm() {
     const { currentUser, setCurrentUser } = useContext(UserContext);
@@ -74,16 +75,16 @@ function UserEditForm() {
     }
 
     return (
-        <div>
+        <div className="user-edit-form">
             <h3>Profile</h3>
             <div>
                 <div>
                     <form>
-                        <div>
+                        <div className="form-group">
                             <label>Username</label>
                             <p>{formData.username}</p>
                         </div>
-                        <div>
+                        <div className="form-group">
                             <label>First Name</label>
                             <input
                                 name="firstName"
@@ -92,7 +93,7 @@ function UserEditForm() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div>
+                        <div className="form-group">
                             <label>Last Name</label>
                             <input
                                 name="lastName"
@@ -101,7 +102,7 @@ function UserEditForm() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div>
+                        <div className="form-group">
                             <label>Email</label>
                             <input
                                 name="email"
@@ -110,7 +111,7 @@ function UserEditForm() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div>
+                        <div className="form-group">
                             <label>Confirm password to make changes:</label>
                             <input
                                 type="password"

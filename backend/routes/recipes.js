@@ -66,10 +66,10 @@ router.get("/:handle", async function (req, res, next) {
     try {
         const recipe = await Recipe.get(req.params.handle);
 
-        const queryRecipes = await queryAPI(req.params.handle);
+        // const queryRecipes = await queryAPI(req.params.handle);
         // console.log("queryRecipes: ", queryRecipes);
 
-        return res.json({ recipe, queryRecipes });
+        return res.json({ recipe });
     } catch (err) {
         return next(err);
     }

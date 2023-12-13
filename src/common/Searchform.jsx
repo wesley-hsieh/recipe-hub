@@ -31,6 +31,7 @@ function Searchform(){
     return (
         <div>
             <div className="search-form-container">
+                <h3>Search for a recipe!</h3>
                 <form onSubmit={handleSubmit}>
                     <input
                         className="search-input"

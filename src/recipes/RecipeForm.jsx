@@ -2,6 +2,7 @@ import React, {useContext, useState} from "react";
 import RecipeAPI from "../api/api";
 import Alert from "../common/Alert";
 import UserContext from "../auth/UserContext";
+import "../recipes/RecipeForm.css";
 
 function RecipeForm(){
     const {currentUser} = useContext(UserContext);
@@ -36,6 +37,7 @@ function RecipeForm(){
 
     return (
         <div className="new-recipe-form">
+            <h3>Add your own recipe and share it with the world!</h3>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="label">Recipe Label:</label>

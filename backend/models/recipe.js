@@ -118,7 +118,7 @@ class Recipe {
 
     static async get(param){
         const result = await db.query(
-            `SELECT label, url, ingredients, instructions, image, username
+            `SELECT id, label, url, ingredients, instructions, image, username
             FROM recipes WHERE label = $1`, [param]
         );
 

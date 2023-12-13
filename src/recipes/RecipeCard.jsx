@@ -24,7 +24,9 @@ function RecipeCard({id, image, api_uri=null, label, ingredients, url }) {
                 }
             })
         }
-        getFavorites();
+        if(currentUser){
+            getFavorites();
+        }
     },[]);
 
     const toggleIngredients = () => {
@@ -103,9 +105,12 @@ function RecipeCard({id, image, api_uri=null, label, ingredients, url }) {
                 <img src={noImageFound} alt="No Image Available" className="recipe-image" />
             )}
             <div className="recipe-details">
-                <button className="favorite-button" onClick={toggleFavorite}>
-                    <FaHeart color={isFavorite ? "red" : "grey"} /> {/* Heart icon */}
-                </button>
+                {currentUser ?
+                    <button className="favorite-button" onClick={toggleFavorite}>
+                        <FaHeart color={isFavorite ? "red" : "grey"} /> {/* Heart icon */}
+                    </button> :
+                    null
+                }
                 <h2 className="recipe-title">{label}</h2>
                 <ul className="ingredient-list">{renderIngredients()}</ul>
                 <a href={url} className="recipe-link" target="_blank" rel="noopener noreferrer">

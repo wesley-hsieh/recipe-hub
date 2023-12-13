@@ -41,7 +41,7 @@ class Recipe {
 
     static async findAll(){
         const result = await db.query(
-            `SELECT label, url, ingredients, instructions, image, username FROM recipes`
+            `SELECT id, label, url, ingredients, instructions, image, username FROM recipes`
         );
 
         if(!result.rows[0]) throw new NotFoundError(`No recipes in database`);

@@ -212,6 +212,17 @@ class User {
         if (!user) throw new NotFoundError(`No user: ${username}`);
     }
 
+    /** Get all favorites for a specific user*/
+    static async getFavorites(username){
+        const userCheck = await db.query(`SELECT username FROM users WHERE username = $1`, [username]);
+        const user = userCheck.rows[0];
+
+        if(!user) throw new NotFoundError(`No user: ${username}`);
+
+        const favorites = await db.query(`SELECT * FROM favorites WHERE username = $1`, [username]);
+        return favorites.rows;
+    }
+
     /** Add a favorite to user.
      */
 

@@ -17,7 +17,6 @@ function UserEditForm() {
 
     // switch to use our fancy limited-time-display message hook
     const [saveConfirmed, setSaveConfirmed] = useState(false);
-    // const [saveConfirmed, setSaveConfirmed] = useTimedMessage()
 
     console.debug(
         "ProfileForm",

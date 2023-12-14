@@ -23,13 +23,6 @@ const router = express.Router();
  */
 
 router.get("/:label", async function (req, res, next) {
-    console.log("in /edamam/:label");
-    // console.log("req:", req);
-    //
-    // const cont = req.query.data.contValue ? req.query.data.contValue : null;
-    //
-    // console.log("req.query.data.contValue: ", cont);
-
     try {
         const response = await queryAPI(req.params.label);
         return res.json({ queryRecipes: response.queryRecipes, _cont: response._cont });

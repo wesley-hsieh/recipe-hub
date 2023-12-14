@@ -15,11 +15,7 @@ function RecipeCard({id, image, api_uri=null, label, ingredients, url }) {
         async function getFavorites(){
             try{
                 const {favorites} = await RecipeAPI.queryFavorites(currentUser.username);
-                // console.log("favorites:", favorites);
                 favorites.forEach((favorite) => {
-                    // console.log(favorite);
-                    // console.log("favorite.id", favorite.id)
-                    // console.log("id:", id);
                     if(favorite.recipe_id === id){
                         setIsFavorite(true);
                     }
@@ -39,7 +35,6 @@ function RecipeCard({id, image, api_uri=null, label, ingredients, url }) {
 
     const toggleFavorite = async() => {
         setIsFavorite(!isFavorite);
-        // console.log("toggleFavorite: ", label);
 
         //if it isn't a favorite already:
         //add recipe to backend database if not already in there, and then add favorite
@@ -47,8 +42,6 @@ function RecipeCard({id, image, api_uri=null, label, ingredients, url }) {
         if(!isFavorite){
             //check if recipe exists in the backend
             const recipe = await RecipeAPI.queryBackend(label);
-            // console.log("recipe.length: ", recipe.length);
-            // console.log("recipe: ", recipe);
             //if the recipe isn't in the backend, add it
             if(recipe.length === 0){
                 const newRecipe = await RecipeAPI.addRecipe({
@@ -59,16 +52,12 @@ function RecipeCard({id, image, api_uri=null, label, ingredients, url }) {
                     url,
                     username: currentUser.username
                 });
-                // console.log("newRecipe: ", newRecipe);
                 await RecipeAPI.addFavorite(currentUser.username, newRecipe.recipe.id);
             }else{ //just add the favorite
                 await RecipeAPI.addFavorite(currentUser.username, recipe[0].id);
             }
         }else{ //remove the favorite from the database;
             const recipe = await RecipeAPI.queryBackend(label);
-            // console.log("trying to remove favorite recipe: ", recipe.rows);
-            // console.log("recipeid : ", recipe[0].id);
-            // console.log(currentUser);
             await RecipeAPI.removeFavorite(currentUser.username, recipe[0].id);
         }
     }

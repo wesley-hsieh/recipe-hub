@@ -18,7 +18,6 @@ function NavRoutes({login, signup}){
         async function fetchRecipes(){
             try{
                 const allRecipes = await RecipeAPI.getRecipes();
-                // console.log("allRecipes:", allRecipes);
                 setRecipes(allRecipes);
             }catch(err){
                 console.error(err);
@@ -52,8 +51,5 @@ function NavRoutes({login, signup}){
         </Routes>
     )
 }
-
-
-
 
 export default NavRoutes;

@@ -13,16 +13,20 @@ function RecipeCard({id, image, api_uri=null, label, ingredients, url }) {
 
     useEffect(()=> {
         async function getFavorites(){
-            const {favorites} = await RecipeAPI.queryFavorites(currentUser.username);
-            // console.log("favorites:", favorites);
-            favorites.forEach((favorite) => {
-                // console.log(favorite);
-                // console.log("favorite.id", favorite.id)
-                // console.log("id:", id);
-                if(favorite.recipe_id === id){
-                    setIsFavorite(true);
-                }
-            })
+            try{
+                const {favorites} = await RecipeAPI.queryFavorites(currentUser.username);
+                // console.log("favorites:", favorites);
+                favorites.forEach((favorite) => {
+                    // console.log(favorite);
+                    // console.log("favorite.id", favorite.id)
+                    // console.log("id:", id);
+                    if(favorite.recipe_id === id){
+                        setIsFavorite(true);
+                    }
+                })
+            }catch(err){
+                console.error(err);
+            }
         }
         if(currentUser){
             getFavorites();

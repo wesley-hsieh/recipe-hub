@@ -20,6 +20,7 @@
 
 /* Style for the submit button */
 .submit-button {
+    margin:2px;
     padding: 8px 16px;
     border: none;
     border-radius: 4px;

@@ -11,6 +11,7 @@ class RecipeAPI{
         const url = `${BASE_URL}/${endpoint}`;
         // console.debug("request urL: ", url);
         const headers = { Authorization: `Bearer ${RecipeAPI.token}` };
+        console.debug("API HEaders: ", headers);
         const params = (method === "get")
             ? data
             : {};
@@ -42,13 +43,20 @@ class RecipeAPI{
      *
      * Specific endpoint for querying from external Edamam API
      * */
-    static async queryRecipes(name) {
-        // console.debug("in queryRecipes: ", name);
-        let res = await this.request(`edamam/${name}`);
-        // console.log(res);
+    static async queryRecipes({name, data = null}) {
+        console.debug("in queryRecipes: ", name);
+        console.debug("data: ", data);
 
-        // const recipes = [...res.queryRecipes, ...res.recipe];
-        return {recipes: res.queryRecipes};
+        //if no data is passed, i.e. no contValue is passed in, query normally
+        if(!data){
+            let res = await this.request(`edamam/${name}`, {data}, "get");
+            return {recipes: res.queryRecipes, _cont: res._cont};
+        }
+        //else,
+        else{
+            let res = await this.request(`edamam/${name}/page`, {data}, "get");
+            return {recipes: res.queryRecipes, _cont:res._cont};
+        }
     }
 
     /** Query backend for recipe(s)

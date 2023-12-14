@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import UserContext from "../auth/UserContext";
 import {Link} from "react-router-dom";
-import Searchform from "../common/Searchform";
+import SearchForm from "../common/SearchForm";
 
 function Homepage(){
     const {currentUser} = useContext(UserContext);
@@ -9,7 +9,7 @@ function Homepage(){
 
     return (
         <div>
-            <Searchform/>
+            <SearchForm/>
         </div>
     )
 }

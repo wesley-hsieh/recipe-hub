@@ -3,7 +3,7 @@ import RecipeAPI from "../api/api";
 import RecipeList from "../recipes/RecipeList";
 import "../common/SearchForm.css";
 
-function Searchform(){
+function SearchForm(){
     const [searchTerm, setSearchTerm] = useState("");
     const [recipes, setRecipes] = useState([]);
     const [cont, setCont] = useState([null]);
@@ -96,4 +96,4 @@ function Searchform(){
     )
 }
 
-export default Searchform;
+export default SearchForm;

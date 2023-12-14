@@ -16,12 +16,17 @@ const { UnauthorizedError } = require("../expressError");
  */
 
 function authenticateJWT(req, res, next) {
+    console.log("Auth JWT");
     try {
         const authHeader = req.headers && req.headers.authorization;
+        console.log("authHeader: ", authHeader);
         if (authHeader) {
             const token = authHeader.replace(/^[Bb]earer /, "").trim();
+            console.log("token:", token);
+            console.log("jwt.verify: ", jwt.verify(token, SECRET_KEY));
             res.locals.user = jwt.verify(token, SECRET_KEY);
-            console.log(res.locals.user);
+            console.log("auth jwt res.locals.user:", res.locals.user);
+            return next();
         }
         return next();
     } catch (err) {
@@ -35,7 +40,11 @@ function authenticateJWT(req, res, next) {
  */
 
 function ensureLoggedIn(req, res, next) {
+    console.log("ensureLoggediN");
+    console.log(res.locals.user);
+    console.log('Request Headers:', req.headers);
     try {
+        console.log(res.locals);
         console.log("res.locals.user: ", res.locals.user);
         if (!res.locals.user) throw new UnauthorizedError();
         return next();
@@ -51,6 +60,8 @@ function ensureLoggedIn(req, res, next) {
  */
 
 function ensureAdmin(req, res, next) {
+    console.log("ensureAdmin");
+    console.log(res.locals.user);
     try {
         if (!res.locals.user || !res.locals.user.isAdmin) {
             throw new UnauthorizedError();
@@ -68,6 +79,8 @@ function ensureAdmin(req, res, next) {
  */
 
 function ensureCorrectUserOrAdmin(req, res, next) {
+    console.log("ensureCorrectUserorAdmin");
+    console.log(res.locals.user);
     try {
         const user = res.locals.user;
         if (!(user && (user.isAdmin || user.username === req.params.username))) {

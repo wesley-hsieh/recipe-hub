@@ -114,7 +114,7 @@ router.delete("/:username", ensureCorrectUserOrAdmin, async function (req, res, 
  * Authorization required: a user is logged in.
  * */
 router.get("/:username/favorites", ensureLoggedIn, async function(req, res, next){
-    console.log('Request Headers:', req.headers);
+    // console.log('Request Headers:', req.headers);
     try{
         const favorites = await User.getFavorites(req.params.username);
         return res.json({favorites: favorites});

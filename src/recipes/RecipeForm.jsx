@@ -32,7 +32,6 @@ function RecipeForm(){
         evt.preventDefault();
         try {
             let data = {...formData, username: currentUser.username};
-            console.log(data);
             const newRecipe = await RecipeAPI.addRecipe({...formData, username: currentUser.username});
             setSuccessMessage("Recipe added successfully!");
         } catch (error) {

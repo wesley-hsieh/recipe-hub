@@ -147,8 +147,6 @@ describe("get", function () {
             await User.get("nope");
             fail();
         } catch (err) {
-            // console.log(err);
-            // console.log(err instanceof NotFoundError);
             expect(err instanceof NotFoundError).toEqual(true);
         }
     });

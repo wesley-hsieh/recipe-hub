@@ -19,6 +19,7 @@ class RecipeAPI{
             return (await axios({ url, method, data, params, headers })).data;
         } catch (err) {
             console.error("API Error:", err);
+            return (err);
         }
     }
 

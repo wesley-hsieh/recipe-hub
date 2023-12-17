@@ -126,9 +126,12 @@ function RecipeCard({id, image, api_uri=null, label, ingredients, url }) {
                 }
                 <h2 className="recipe-title">{label}</h2>
                 <ul className="ingredient-list">{renderIngredients()}</ul>
-                <a href={url} className="recipe-link" target="_blank" rel="noopener noreferrer">
-                    View Recipe
-                </a>
+                {url ? (
+                    <a href={url} className="recipe-link" target="_blank" rel="noopener noreferrer">
+                        View Recipe
+                    </a>) : null
+                }
+
             </div>
         </div>
     );

@@ -10,14 +10,11 @@ function SearchForm(){
     const [page, setPage] = useState(null);
     const [query, setQuery] = useState(null);
 
+    /** search function to query based on user's submission*/
     async function search(query){
-        console.debug("in SearchForm", query);
         let res = await RecipeAPI.queryRecipes({name: query});
-        console.log(res);
-
         const recipes = res.recipes.map(recipe => recipe.recipe);
 
-        // setRecipes(res.recipes);
         setRecipes(recipes);
 
         setPage(0);
@@ -25,16 +22,18 @@ function SearchForm(){
         setQuery(query);
     }
 
+    /** Handle form submission */
     function handleSubmit(evt){
         evt.preventDefault();
         search(searchTerm.trim());
     }
 
+    /** Handle form data changing */
     function handleChange(evt) {
-        console.debug("searchTerm handleChange");
         setSearchTerm(evt.target.value);
     }
 
+    /** Handle page change, can be multi-purposed for "forwards" or "backwards"*/
     function handlePageChange(direction){
         if (direction === "next") {
             setPage((page) => page + 1);
@@ -43,17 +42,13 @@ function SearchForm(){
         }
     }
 
+    /** useEffect on the page state variable to grab next set of recipes
+     * based off the _cont value that is given to us in the initial query and subsequent queries
+     * */
     useEffect(() => {
-        console.debug("Current page: ", page);
         async function grabPage(){
-            // console.debug(page);
-            console.debug(cont);
             const contValue = cont[page];
-            console.debug("contVlaue: ", contValue);
-
             let res = await RecipeAPI.queryRecipes({name: query, data: {contValue: contValue}});
-            console.debug("grabPage: ", res);
-
             const recipes = res.recipes.map(recipe => recipe.recipe);
             setRecipes(recipes);
             setCont([...cont, res._cont]);

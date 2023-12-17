@@ -5,7 +5,6 @@ import "../nav/NavBar.css";
 
 function NavBar({logout}){
     const {currentUser} = useContext(UserContext);
-    console.debug("NavBar", "currentUser: ", currentUser);
 
     function userNav(){
         return (

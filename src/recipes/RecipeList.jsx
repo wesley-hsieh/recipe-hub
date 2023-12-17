@@ -1,6 +1,15 @@
 import React from "react";
 import RecipeCard from "./RecipeCard";
-import "./RecipeList.css"; // Import your CSS file
+import "./RecipeList.css";
+
+/** RecipeList component
+ *
+ * accepts list of recipe objects on which multiple RecipeCard components will be rendered from
+ *
+ * @param recipes
+ * @returns {JSX.Element}
+ * @constructor
+ */
 
 function RecipeList({ recipes }) {
     return (

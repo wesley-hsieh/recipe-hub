@@ -32,7 +32,13 @@ function SignupForm({ signup }) {
         "formErrors=", formErrors,
     );
 
+    /** Handle form data changing */
+    function handleChange(evt) {
+        const { name, value } = evt.target;
+        setFormData(data => ({ ...data, [name]: value }));
+    }
 
+    /** Handle form submission */
     async function handleSubmit(evt) {
         evt.preventDefault();
         let result = await signup(formData);
@@ -41,11 +47,6 @@ function SignupForm({ signup }) {
         } else {
             setFormErrors(result.errors);
         }
-    }
-
-    function handleChange(evt) {
-        const { name, value } = evt.target;
-        setFormData(data => ({ ...data, [name]: value }));
     }
 
     return (

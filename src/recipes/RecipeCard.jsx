@@ -1,9 +1,23 @@
 import React, {useState, useContext, useEffect} from "react";
-import "./RecipeCard.css"; // Import your CSS file
+import "./RecipeCard.css";
 import {FaHeart} from "react-icons/fa";
 import noImageFound from "../static/no-image-available.png"
 import RecipeAPI from "../api/api";
 import UserContext from "../auth/UserContext";
+
+/** RecipeCard component
+ *
+ * Represents a singular recipe instance
+ *
+ * @param id
+ * @param image can be null
+ * @param api_uri can be null
+ * @param label
+ * @param ingredients
+ * @param url
+ * @returns {JSX.Element}
+ * @constructor
+ */
 
 function RecipeCard({id, image, api_uri=null, label, ingredients, url }) {
     const {currentUser} = useContext(UserContext);
@@ -11,6 +25,8 @@ function RecipeCard({id, image, api_uri=null, label, ingredients, url }) {
     const [showAllIngredients, setShowAllIngredients] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
 
+    /** On component mount, grab specifically all the user's favorite recipes in order to determine initial state
+     */
     useEffect(()=> {
         async function getFavorites(){
             try{
@@ -62,6 +78,10 @@ function RecipeCard({id, image, api_uri=null, label, ingredients, url }) {
         }
     }
 
+    /** Conditional rendering of ingredients list
+     * Adds a "Show more" button to recipes that have more than maxIngredientsToShow, which can be adjusted accordingly.
+     * "Show less" button collapses the list of ingredients. Default render is collapsed.
+     */
     const renderIngredients = () => {
         if (!showAllIngredients && ingredients.length > maxIngredientsToShow) {
             return (

@@ -9,6 +9,9 @@ function User() {
     const { currentUser } = useContext(UserContext);
     const [recipes, setRecipes] = useState([]);
 
+    /**defined function to use on component mount to grab
+     * user created recipes
+      */
     const fetchRecipes = async () => {
         const res = await RecipeAPI.getRecipes();
         const userRecipes = res.filter((recipe) => recipe.username === currentUser.username);

@@ -5,13 +5,12 @@ const BASE_URL =  process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 class RecipeAPI{
     static token;
 
+    /** General function that will build and send the axios request based on the given parameters*/
     static async request(endpoint, data = {}, method = "get") {
         console.debug("API Call:", endpoint, data, method);
 
         const url = `${BASE_URL}/${endpoint}`;
-        // console.debug("request urL: ", url);
         const headers = { Authorization: `Bearer ${RecipeAPI.token}` };
-        console.debug("API HEaders: ", headers);
         const params = (method === "get")
             ? data
             : {};
@@ -20,8 +19,6 @@ class RecipeAPI{
             return (await axios({ url, method, data, params, headers })).data;
         } catch (err) {
             console.error("API Error:", err);
-            // let message = err.response.data.error.message;
-            // throw Array.isArray(message) ? message : [message];
         }
     }
 
@@ -33,9 +30,7 @@ class RecipeAPI{
 
     /** Get all recipes */
     static async getRecipes(){
-        // console.log("GetRecipes");
         let res = await this.request("recipes");
-        console.log(res.result);
         return res.result;
     }
 
@@ -44,9 +39,6 @@ class RecipeAPI{
      * Specific endpoint for querying from external Edamam API
      * */
     static async queryRecipes({name, data = null}) {
-        console.debug("in queryRecipes: ", name);
-        console.debug("data: ", data);
-
         //if no data is passed, i.e. no contValue is passed in, query normally
         if(!data){
             let res = await this.request(`edamam/${name}`, {data}, "get");
@@ -65,7 +57,6 @@ class RecipeAPI{
      * */
     static async queryBackend(name){
         let res = await this.request(`recipes/${name}`);
-
         return res.recipe;
     }
 

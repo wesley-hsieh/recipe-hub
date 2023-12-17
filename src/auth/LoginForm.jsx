@@ -10,6 +10,7 @@ function LoginForm({login}){
         password: "",
     });
     const [formErrors, setFormErrors] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
 
     /** Handle form data changing */
     function handleChange(evt){
@@ -24,12 +25,18 @@ function LoginForm({login}){
         if (result.success) {
             navigate("/");
         } else {
+            setErrorMessage("Incorrect username or password.");
             setFormErrors(result.errors);
         }
     }
 
     return (
         <div className="login-form">
+            {errorMessage && (
+                <div className="error-message">
+                    <Alert type="danger" messages={[errorMessage]} />
+                </div>
+            )}
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="username">Username:</label>
@@ -53,11 +60,6 @@ function LoginForm({login}){
                 </div>
                 <button type="submit">Login</button>
             </form>
-            {formErrors.length > 0 && (
-                <div className="error-message">
-                    <Alert type="danger" messages={formErrors} />
-                </div>
-            )}
         </div>
     );
 }

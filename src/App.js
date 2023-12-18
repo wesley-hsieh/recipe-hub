@@ -74,7 +74,6 @@ function App() {
             }else{
                 return { success: false };
             }
-
         } catch (errors) {
             console.error("login failed", errors);
             return { success: false, errors };

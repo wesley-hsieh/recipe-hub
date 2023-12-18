@@ -9,22 +9,24 @@ import User from "../users/User";
 import UserEditForm from "../users/UserEditForm";
 import RecipeAPI from "../api/api";
 import RecipeForm from "../recipes/RecipeForm";
+import RecipeDetails from "../recipes/RecipeDetails";
+import DatabaseList from "../recipes/DatabaseList";
 
 function NavRoutes({login, signup}){
     const { currentUser, recipes, setRecipes } = useContext(UserContext);
     console.debug("NavRoutes", `login=${typeof login}`, `signup=${typeof signup}`);
 
-    useEffect(() => {
-        async function fetchRecipes(){
-            try{
-                const allRecipes = await RecipeAPI.getRecipes();
-                setRecipes(allRecipes);
-            }catch(err){
-                console.error(err);
-            }
-        }
-        fetchRecipes();
-    }, []);
+    // useEffect(() => {
+    //     async function fetchRecipes(){
+    //         try{
+    //             const allRecipes = await RecipeAPI.getRecipes();
+    //             setRecipes(allRecipes);
+    //         }catch(err){
+    //             console.error(err);
+    //         }
+    //     }
+    //     fetchRecipes();
+    // }, []);
 
     return (
         <Routes>
@@ -37,7 +39,7 @@ function NavRoutes({login, signup}){
             <Route exact path="/signup" element={<SignupForm signup={signup}/> }>
             </Route>
 
-            <Route exact path="/recipes" element={<RecipeList recipes={recipes}/>}>
+            <Route exact path="/recipes" element={<DatabaseList/>}>
             </Route>
 
             <Route exact path="/profile" element={<User/>}></Route>
@@ -47,6 +49,8 @@ function NavRoutes({login, signup}){
             <Route exact path="/recipe/new" element={<RecipeForm/>}>
             </Route>
 
+            <Route exact path="/recipe/:label" element={<RecipeDetails/>}>
+            </Route>
 
         </Routes>
     )

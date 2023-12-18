@@ -26,8 +26,6 @@ function RecipeCard({id, image, api_uri=null, label, ingredients, instructions, 
     const [showAllIngredients, setShowAllIngredients] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
 
-    const navigate = useNavigate();
-
     /** On component mount, grab specifically all the user's favorite recipes in order to determine initial state
      */
     useEffect(()=> {

@@ -13,6 +13,7 @@ function App() {
     const [currentUser, setCurrentUser] = useState(null);
     const [token, setToken] = useState(null);
     const [infoLoaded, setInfoLoaded] = useState(false);
+    const [recipes, setRecipes] = useState([]);
 
     console.debug(
         "Recipe Hub",
@@ -84,7 +85,7 @@ function App() {
     return (
         <div className="App">
             <BrowserRouter>
-                <UserContext.Provider value={{currentUser, setCurrentUser}}>
+                <UserContext.Provider value={{currentUser, setCurrentUser, recipes, setRecipes}}>
                     <div className="recipeHub">
                         <NavBar logout={logOut}/>
                         <NavRoutes login={login} signup={signup}/>

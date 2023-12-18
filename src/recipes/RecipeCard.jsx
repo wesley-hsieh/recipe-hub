@@ -4,6 +4,7 @@ import {FaHeart} from "react-icons/fa";
 import noImageFound from "../static/no-image-available.png"
 import RecipeAPI from "../api/api";
 import UserContext from "../auth/UserContext";
+import {useNavigate} from "react-router-dom";
 
 /** RecipeCard component
  *
@@ -19,11 +20,13 @@ import UserContext from "../auth/UserContext";
  * @constructor
  */
 
-function RecipeCard({id, image, api_uri=null, label, ingredients, url }) {
+function RecipeCard({id, image, api_uri=null, label, ingredients, instructions, url }) {
     const {currentUser} = useContext(UserContext);
     const maxIngredientsToShow = 3; // Set the number of ingredients to show initially
     const [showAllIngredients, setShowAllIngredients] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
+
+    const navigate = useNavigate();
 
     /** On component mount, grab specifically all the user's favorite recipes in order to determine initial state
      */
@@ -65,6 +68,7 @@ function RecipeCard({id, image, api_uri=null, label, ingredients, url }) {
                     api_uri: api_uri ? api_uri : null,
                     label: label,
                     ingredients: ingredients.join(','),
+                    instructions: instructions.join(','),
                     url,
                     username: currentUser.username
                 });
@@ -110,6 +114,10 @@ function RecipeCard({id, image, api_uri=null, label, ingredients, url }) {
         }
     };
 
+    const handleClick = () => {
+        navigate(`/recipe/${label}`, { state: { recipe:  {id, image, api_uri: api_uri? api_uri: null, label, ingredients, instructions, url } } });
+    };
+
     return (
         <div className="recipe-card">
             {image ? (
@@ -125,12 +133,19 @@ function RecipeCard({id, image, api_uri=null, label, ingredients, url }) {
                     null
                 }
                 <h2 className="recipe-title">{label}</h2>
+                {/*<h2 className="recipe-title">{label} </h2>*/}
                 <ul className="ingredient-list">{renderIngredients()}</ul>
-                {url ? (
-                    <a href={url} className="recipe-link" target="_blank" rel="noopener noreferrer">
+                <div className="button-div">
+                    {url ? (
+                        <a href={url} className="view-recipe-button" target="_blank" rel="noopener noreferrer">
+                            External Link
+                        </a>) : null
+                    }
+                    <button className="view-recipe-button" onClick={handleClick}>
                         View Recipe
-                    </a>) : null
-                }
+                    </button>
+                </div>
+
 
             </div>
         </div>

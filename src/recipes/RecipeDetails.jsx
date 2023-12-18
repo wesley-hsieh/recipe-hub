@@ -20,8 +20,6 @@ function RecipeDetails(){
         ingredients,
         instructions,
         url } = location.state.recipe || {};
-    console.log("location.state: ", location.state.recipe);
-    console.log(instructions);
 
     const toggleIngredients = () => {
         setShowAllIngredients(!showAllIngredients);

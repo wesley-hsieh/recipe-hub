@@ -68,8 +68,13 @@ function App() {
     async function login(loginData) {
         try {
             let token = await RecipeAPI.login(loginData);
-            setToken(token);
-            return { success: true };
+            if(token){
+                setToken(token);
+                return { success: true };
+            }else{
+                return { success: false };
+            }
+
         } catch (errors) {
             console.error("login failed", errors);
             return { success: false, errors };

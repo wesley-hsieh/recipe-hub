@@ -8,10 +8,7 @@ import "../auth/SignupForm.css";
  * Shows form and manages update to state on changes.
  * On submission:
  * - calls signup function prop
- * - redirects to /companies route
- *
- * Routes -> SignupForm -> Alert
- * Routed as /signup
+ * - redirects to the homepage
  */
 
 function SignupForm({ signup }) {

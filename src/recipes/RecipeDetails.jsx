@@ -1,12 +1,12 @@
 import React, {useState, useContext, useEffect} from "react";
-import {FaHeart} from "react-icons/fa";
 import UserContext from "../auth/UserContext";
 import noImageFound from "../static/no-image-available.png"
-import RecipeAPI from "../api/api";
 import {useLocation} from "react-router-dom";
 import "./RecipeDetails.css";
 
-
+/** RecipeDetails component
+ * A component for detailing all the parts of a Recipe, different from RecipeCard in that RecipeDetails renders list of instructions
+ * */
 function RecipeDetails(){
     const {currentUser} = useContext(UserContext);
     const maxIngredientsToShow = 3; // Set the number of ingredients to show initially

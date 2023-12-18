@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from "react";
-import RecipeAPI from "../api/api";
-import RecipeList from "../recipes/RecipeList";
 import "../common/SearchForm.css";
 
+/** SearchForm component
+ * Mounted in the Homepage component, renders a React-controlled form element
+ * which will subsequently call the passed down 'search' function from the Homepage component.
+ * */
 function SearchForm({search}){
     const [searchTerm, setSearchTerm] = useState("");
 
     /** Handle form submission */
     function handleSubmit(evt){
-        console.log("handlesubmit");
         evt.preventDefault();
         search(searchTerm.trim());
     }

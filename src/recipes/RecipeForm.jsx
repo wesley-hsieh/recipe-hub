@@ -5,6 +5,7 @@ import UserContext from "../auth/UserContext";
 import "../recipes/RecipeForm.css";
 import {Link} from "react-router-dom";
 
+/** RecipeForm component for adding a recipe to the database*/
 function RecipeForm(){
     const {currentUser} = useContext(UserContext);
     const [formData, setFormData] = useState({

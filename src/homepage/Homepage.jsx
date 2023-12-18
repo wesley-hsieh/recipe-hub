@@ -6,6 +6,9 @@ import RecipeAPI from "../api/api";
 import Alert from "../common/Alert";
 import "./Homepage.css"
 
+/** Main homepage component
+ * Handles user searchs to API and holds the main components to do so: SearchForm and the corresponding RecipeList
+ * */
 function Homepage(){
     const {currentUser} = useContext(UserContext);
     const [recipes, setRecipes] = useState([]);

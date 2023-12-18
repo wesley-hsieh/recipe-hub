@@ -9,15 +9,6 @@ import {useNavigate} from "react-router-dom";
 /** RecipeCard component
  *
  * Represents a singular recipe instance
- *
- * @param id
- * @param image can be null
- * @param api_uri can be null
- * @param label
- * @param ingredients
- * @param url
- * @returns {JSX.Element}
- * @constructor
  */
 
 function RecipeCard({id, image, api_uri=null, label, ingredients, instructions, url }) {

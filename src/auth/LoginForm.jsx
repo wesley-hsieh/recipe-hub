@@ -3,6 +3,14 @@ import { useNavigate } from "react-router-dom";
 import Alert from "../common/Alert";
 import "../auth/LoginForm.css";
 
+/** Loginform component
+ *
+ * Shows form and manages update to state on changes.
+ * On submission:
+ * - calls login function prop
+ * - redirects to homepage
+ */
+
 function LoginForm({login}){
     const navigate = useNavigate();
     const [formData, setFormData] = useState({

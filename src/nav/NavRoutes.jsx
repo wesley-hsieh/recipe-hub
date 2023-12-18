@@ -4,29 +4,18 @@ import {Routes, Navigate, Route} from "react-router-dom";
 import Homepage from "../homepage/Homepage";
 import LoginForm from "../auth/LoginForm";
 import SignupForm from "../auth/SignupForm";
-import RecipeList from "../recipes/RecipeList";
 import User from "../users/User";
 import UserEditForm from "../users/UserEditForm";
-import RecipeAPI from "../api/api";
 import RecipeForm from "../recipes/RecipeForm";
 import RecipeDetails from "../recipes/RecipeDetails";
 import DatabaseList from "../recipes/DatabaseList";
 
+/** NavRoutes component
+ * Represents the <Routes/> component for react-router-dom package.
+ * */
 function NavRoutes({login, signup}){
     const { currentUser, recipes, setRecipes } = useContext(UserContext);
     console.debug("NavRoutes", `login=${typeof login}`, `signup=${typeof signup}`);
-
-    // useEffect(() => {
-    //     async function fetchRecipes(){
-    //         try{
-    //             const allRecipes = await RecipeAPI.getRecipes();
-    //             setRecipes(allRecipes);
-    //         }catch(err){
-    //             console.error(err);
-    //         }
-    //     }
-    //     fetchRecipes();
-    // }, []);
 
     return (
         <Routes>

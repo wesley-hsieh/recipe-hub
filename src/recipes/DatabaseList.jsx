@@ -4,16 +4,11 @@ import "./DatabaseList.css";
 import RecipeAPI from "../api/api";
 
 /** DatabaseList component
- *
- * accepts list of recipe objects on which multiple RecipeCard components will be rendered from
- *
- * @param recipes
- * @returns {JSX.Element}
- * @constructor
+ * Specific version of RecipeList component that does not take a list of recipes
+ * and instead queries the psql database recipes
  */
 
 function DatabaseList() {
-    console.log("DatabaseList", );/**/
     const [recipes, setRecipes] = useState([]);
 
     useEffect(() => {

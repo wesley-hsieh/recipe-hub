@@ -4,6 +4,9 @@ import RecipeAPI from "../api/api";
 import UserContext from "../auth/UserContext";
 import "../users/UserEditForm.css";
 
+/** UserEditForm component
+ *
+ * */
 function UserEditForm() {
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const [formData, setFormData] = useState({

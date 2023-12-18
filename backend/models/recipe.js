@@ -16,17 +16,17 @@ class Recipe {
      * Throws BadRequestError if company already in database.
      * */
 
-    static async create({api_uri, title, url, ingredients, instructions, username}){
-        const checkDuplicate = await db.query(`SELECT title FROM recipes WHERE title= $1`, [title]);
+    static async create({label, url, ingredients, instructions, image, username}){
+        const checkDuplicate = await db.query(`SELECT label FROM recipes WHERE label= $1`, [label]);
 
-        if (checkDuplicate.rows[0]) throw new BadRequestError(`Duplicate recipe: ${title}`);
+        if (checkDuplicate.rows[0]) throw new BadRequestError(`Duplicate recipe: ${label}`);
 
         const result = await db.query(
             `INSERT INTO recipes 
-            (api_uri, title, url, ingredients, instructions, username) 
+            (label, url, ingredients, instructions, image, username) 
             VALUES ($1, $2, $3, $4, $5, $6)
-            RETURNING api_uri, title, url, ingredients, instructions, username`,
-            [api_uri, title, url, ingredients, instructions, username]
+            RETURNING id, label, url, ingredients, instructions, image, username`,
+            [label, url, ingredients, instructions, image, username]
         )
 
         const recipe = result.rows[0];
@@ -41,7 +41,7 @@ class Recipe {
 
     static async findAll(){
         const result = await db.query(
-            `SELECT api_uri, title, url, ingredients, instructions, username FROM recipes`
+            `SELECT id, label, url, ingredients, instructions, image, username FROM recipes`
         );
 
         if(!result.rows[0]) throw new NotFoundError(`No recipes in database`);
@@ -64,12 +64,11 @@ class Recipe {
         return result.rows;
     }
 
-    static async update(recipe_title, data) {
+    static async update(recipe_label, data) {
         const { setCols, values } = sqlForPartialUpdate(
             data,
             {
-                api_uri: "api_uri",
-                title: "title",
+                label: "label",
                 url: "url",
                 ingredients: "ingredients",
                 instructions: "instructions"
@@ -78,13 +77,13 @@ class Recipe {
 
         const querySql = `UPDATE recipes
                       SET ${setCols}
-                      WHERE title = $${values.length + 1}
-                      RETURNING api_uri, title, url, ingredients, instructions`;
+                      WHERE label = $${values.length + 1}
+                      RETURNING title, url, ingredients, instructions, image, username`;
 
-        const result = await db.query(querySql, [...values, recipe_title]);
+        const result = await db.query(querySql, [...values, recipe_label]);
         const recipe = result.rows[0];
 
-        if (!recipe) throw new NotFoundError(`No recipe found: ${recipe_title}`);
+        if (!recipe) throw new NotFoundError(`No recipe found: ${recipe_label}`);
 
         return recipe;
     }
@@ -95,15 +94,15 @@ class Recipe {
      *
      * Throws NotFoundError if recipe not found.
      **/
-    static async remove(recipe_title){
+    static async remove(recipe_label){
         const result = await db.query(
             `DELETE
         FROM recipes
-        WHERE title = $1`, [recipe_title]
+        WHERE label = $1`, [recipe_label]
         );
 
         if (result.rowCount === 0) {
-            throw new NotFoundError(`No recipe: ${recipe_title}`);
+            throw new NotFoundError(`No recipe: ${recipe_label}`);
         }
 
         return undefined;
@@ -119,8 +118,8 @@ class Recipe {
 
     static async get(param){
         const result = await db.query(
-            `SELECT api_uri, title, url, ingredients, instructions, username
-            FROM recipes WHERE title = $1`, [param]
+            `SELECT id, label, url, ingredients, instructions, image, username
+            FROM recipes WHERE label = $1`, [param]
         );
 
         const recipes = result.rows;

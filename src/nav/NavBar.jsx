@@ -3,9 +3,11 @@ import {Link, NavLink} from "react-router-dom";
 import UserContext from "../auth/UserContext";
 import "../nav/NavBar.css";
 
+/** Navbar component
+ *  Renders different elements based on whether or not there is a currentUser
+ *  */
 function NavBar({logout}){
     const {currentUser} = useContext(UserContext);
-    console.debug("NavBar", "currentUser: ", currentUser);
 
     function userNav(){
         return (
@@ -14,7 +16,7 @@ function NavBar({logout}){
                     <NavLink to="/recipes">Recipes</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/profile"></NavLink>
+                    <NavLink to="/profile">Profile</NavLink>
                 </li>
                 <li>
                     <Link to="/" onClick={logout}>Logout</Link>

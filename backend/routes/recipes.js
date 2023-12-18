@@ -1,6 +1,6 @@
 "use strict";
 
-/** Routes for recipes*/
+/** NavRoutes for recipes*/
 
 const jsonschema = require("jsonschema");
 const express = require("express");
@@ -46,8 +46,7 @@ router.post("/", ensureLoggedIn, async function (req, res, next) {
 router.get("/", async function(req, res, next){
     try{
         const result = await Recipe.findAll();
-        const recipes = result.rows
-        return res.json({recipes});
+        return res.json({result});
     }catch(err){
         return next(err);
     }
@@ -63,11 +62,7 @@ router.get("/", async function(req, res, next){
 router.get("/:handle", async function (req, res, next) {
     try {
         const recipe = await Recipe.get(req.params.handle);
-
-        const queryRecipes = await queryAPI(req.params.handle);
-        console.log(queryRecipes);
-
-        return res.json({ recipe, queryRecipes });
+        return res.json({ recipe });
     } catch (err) {
         return next(err);
     }

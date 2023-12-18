@@ -1,12 +1,12 @@
 "use strict";
 
-/** Routes for users*/
+/** NavRoutes for users*/
 
 const express = require('express');
 const jsonschema = require("jsonschema");
 const { BadRequestError } = require("../expressError");
 const User = require("../models/user");
-const {ensureCorrectUserOrAdmin, ensureAdmin} = require("../middleware/auth");
+const {ensureCorrectUserOrAdmin, ensureAdmin, ensureLoggedIn} = require("../middleware/auth");
 const { createToken } = require("../helpers/tokens");
 const userNewSchema = require("../schemas/userNew.json");
 const userUpdateSchema = require("../schemas/userUpdate.json");
@@ -107,6 +107,22 @@ router.delete("/:username", ensureCorrectUserOrAdmin, async function (req, res, 
     }
 });
 
+/** GET a user's favorites
+ *
+ * returns {favorites: result}
+ *
+ * Authorization required: a user is logged in.
+ * */
+router.get("/:username/favorites", ensureLoggedIn, async function(req, res, next){
+    // console.log('Request Headers:', req.headers);
+    try{
+        const favorites = await User.getFavorites(req.params.username);
+        return res.json({favorites: favorites});
+    }catch(err){
+        return next(err);
+    }
+})
+
 /** POST, add a favorite to a user
  *
  * Returns {"favorited": recipeId}
@@ -124,6 +140,19 @@ router.post("/:username/recipes/:id", ensureCorrectUserOrAdmin, async function (
     }
 });
 
+/** DELETE, remove a favorite from a user
+ *
+ * returns deleted favorite
+ * */
 
+router.delete("/:username/recipes/:id", ensureCorrectUserOrAdmin, async function(req, res, next){
+    try{
+        const recipeId = +req.params.id;
+        await User.removeFavorite(req.params.username, recipeId);
+        return res.json({deletedFav: recipeId});
+    }catch(err){
+        return next(err);
+    }
+})
 
 module.exports = router;

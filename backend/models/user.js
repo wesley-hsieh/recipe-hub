@@ -212,6 +212,17 @@ class User {
         if (!user) throw new NotFoundError(`No user: ${username}`);
     }
 
+    /** Get all favorites for a specific user*/
+    static async getFavorites(username){
+        const userCheck = await db.query(`SELECT username FROM users WHERE username = $1`, [username]);
+        const user = userCheck.rows[0];
+
+        if(!user) throw new NotFoundError(`No user: ${username}`);
+
+        const favorites = await db.query(`SELECT * FROM favorites WHERE username = $1`, [username]);
+        return favorites.rows;
+    }
+
     /** Add a favorite to user.
      */
 
@@ -233,6 +244,22 @@ class User {
 
     }
 
+    /** Remove a favorite from a user;
+     * */
+
+    static async removeFavorite(username, recipe_id){
+        const recipeCheck = await db.query(`SELECT id FROM recipes WHERE id = $1`, [recipe_id]);
+        const recipe = recipeCheck.rows[0];
+
+        if(!recipe) throw new NotFoundError(`No recipe: ${recipe_id}`);
+
+        const userCheck = await db.query(`SELECT username from users WHERE username = $1`, [username]);
+        const user = userCheck.rows[0];
+
+        if(!user) throw new NotFoundError(`No user: ${username}`);
+
+        await db.query(`DELETE FROM favorites WHERE username = $1 AND recipe_id = $2`, [username, recipe_id]);
+    }
 }
 
 

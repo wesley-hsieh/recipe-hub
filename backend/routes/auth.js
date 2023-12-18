@@ -1,6 +1,6 @@
 "use strict";
 
-/** Routes for authentication. */
+/** NavRoutes for authentication. */
 
 const jsonschema = require("jsonschema");
 

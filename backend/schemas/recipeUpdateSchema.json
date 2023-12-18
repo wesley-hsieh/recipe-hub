@@ -4,13 +4,19 @@
   "type": "object",
   "properties": {
     "url": {
-      "type": "string"
+      "type": ["string", "null"]
     },
     "ingredients": {
       "type": "string"
     },
     "instructions": {
       "type": "string"
+    },
+    "image": {
+      "type": ["string", "null"]
+    },
+    "api_uri": {
+      "type": ["string", "null"]
     }
   },
   "additionalProperties": false,

@@ -3,11 +3,11 @@
   "$id": "http://our.company.com/recipeNew.schema.json",
   "type": "object",
   "properties": {
-    "title": {
+    "label": {
       "type": "string"
     },
     "url": {
-      "type": "string"
+      "type": ["string", "null"]
     },
     "ingredients": {
       "type": "string"
@@ -16,16 +16,19 @@
       "type": "string"
     },
     "api_uri": {
-      "type": "string",
+      "type": ["string", "null"],
       "format": "uri"
     },
     "username": {
       "type": "string"
+    },
+    "image": {
+      "type": ["string", "null"]
     }
   },
   "additionalProperties": false,
   "required": [
-    "title",
+    "label",
     "ingredients",
     "username"
   ]

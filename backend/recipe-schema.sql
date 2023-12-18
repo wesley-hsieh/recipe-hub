@@ -10,11 +10,11 @@ CREATE TABLE users (
 
 CREATE TABLE recipes (
     id SERIAL PRIMARY KEY,
-    api_uri TEXT,
-    title TEXT NOT NULL,
+    label TEXT NOT NULL,
     url TEXT,
     ingredients TEXT NOT NULL,
     instructions TEXT,
+    image TEXT,
     username VARCHAR(25)
       REFERENCES users ON DELETE CASCADE
 );

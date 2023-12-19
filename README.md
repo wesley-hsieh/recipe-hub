@@ -16,6 +16,7 @@ If you wish to experiment with this project on your own, feel free to do so. Dow
 This project requires a PostgreSQL database to store any user information/recipes but the search function will still work as intended without it.
 
 Generally however, upon downloading the repository to a local machine, install the dependencies/modules with `npm install`.
+
 For running the backend/frontend separately: 
 - Backend: `cd backend` followed by `node server.js` (I use nodemon for instances where I am still editing backend files)
 - Frontend: `npm start` 

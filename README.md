@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# Recipe Hub
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Description 
 
-In the project directory, you can run:
+This website is a personal project on exploring making a fullstack application of my own. The concept by which is being a 
+place where people can come, record their favorite recipes that they have from over the years, look up other people's recipes, 
+and save them for future use.
 
-### `npm start`
+## Getting started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+*Currently working on getting this deployed to Heroku.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+If you wish to experiment with this project on your own, feel free to do so. Download/clone the repository with your method of choice.
+This project requires a PostgreSQL database to store any user information/recipes but the search function will still work as intended without it.
 
-### `npm test`
+Generally however, upon downloading the repository to a local machine, install the dependencies/modules with `npm install`.
+For running the backend/frontend separately: 
+- Backend: `cd backend` followed by `node server.js` (I use nodemon for instances where I am still editing backend files)
+- Frontend: `npm start` 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+For running both backend and frontend simultaneously: `npm run start:both`
 
-### `npm run build`
+## Key features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Some key features of this site as detailed previously: 
+- User signup/login
+- Recipe searching/favoriting
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Standard user flow
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+As this project is using the free tier of an external API(detailed below), I have allowed anonymous users to freely
+search up recipes. 
 
-### `npm run eject`
+- As an anonymous user: the user will have the option to type in their search parameter, 
+scroll through pages of recipes, each of which has their own link to a separate individual page detailing the recipe or 
+an external link to a separate website entirely from which the recipe was found.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- As a registered user: the user will have the options that the anonymous user will have, however they will have the added
+options to favorite recipes they like which will be saved to the database and explore recipes already on the database.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Where's the data coming from?
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The data is being sourced by [Edamam's Recipe search API](https://www.edamam.com/)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Tech stack
 
-## Learn More
+The tech stack for this particular project covers React, Node.js/Express, PostgreSQL, HTML5, and CSS3
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

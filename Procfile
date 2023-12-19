@@ -1,1 +1,2 @@
-web: concurrently "npm run start:server" "npm run start:client"
+web: npm run start:client
+worker: npm run start:server

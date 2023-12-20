@@ -15,8 +15,8 @@ function DatabaseList() {
         async function fetchRecipes(){
             try{
                 const allRecipes = await RecipeAPI.getRecipes();
-                console.log("all recipes: ", allRecipes);
-                allRecipes.forEach(recipe => console.log(recipe.instructions));
+                // console.log("all recipes: ", allRecipes);
+                // allRecipes.forEach(recipe => console.log(recipe.instructions));
 
 
                 setRecipes(allRecipes);

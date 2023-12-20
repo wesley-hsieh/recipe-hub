@@ -16,10 +16,10 @@ app.use(cors());
 app.use(authenticateJWT);
 
 /** Initialize routes */
-app.use('/recipes', recipeRoutes);
-app.use('/auth', authRoutes);
-app.use('/users', userRoutes);
-app.use('/edamam', edamamRoutes);
+app.use('/api/recipes', recipeRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/edamam', edamamRoutes);
 
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {

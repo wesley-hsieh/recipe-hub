@@ -10,7 +10,7 @@ and save them for future use.
 
 ## Getting started
 
-*Currently working on getting this deployed to Heroku.
+Find a demo of this site hosted at [Recipe-hub](https://recipe-hub-frontend-e4b21578dd01.herokuapp.com/)
 
 If you wish to experiment with this project on your own, feel free to do so. Download/clone the repository with your method of choice.
 This project requires a PostgreSQL database to store any user information/recipes but the search function will still work as intended without it.

@@ -15,12 +15,12 @@ function App() {
     const [infoLoaded, setInfoLoaded] = useState(false);
     const [recipes, setRecipes] = useState([]);
 
-    console.debug(
-        "Recipe Hub",
-        "infoLoaded=", infoLoaded,
-        "currentUser=", currentUser,
-        "token=", token,
-    );
+    // console.debug(
+    //     "Recipe Hub",
+    //     "infoLoaded=", infoLoaded,
+    //     "currentUser=", currentUser,
+    //     "token=", token,
+    // );
 
     /** loadUserInfo()
      * useEffect on the value of the token so this only runs
@@ -28,7 +28,7 @@ function App() {
      * */
 
     useEffect(function loadUserInfo() {
-        console.debug("App useEffect loadUserInfo", "token=", token);
+        // console.debug("App useEffect loadUserInfo", "token=", token);
 
         async function getCurrentUser() {
             if (token) {

@@ -16,7 +16,7 @@ function SearchForm({search}){
 
     /** Handle form data changing */
     function handleChange(evt) {
-        console.log("handleChange:", evt.target.value);
+        // console.log("handleChange:", evt.target.value);
         setSearchTerm(evt.target.value);
     }
 

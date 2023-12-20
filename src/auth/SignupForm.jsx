@@ -22,12 +22,12 @@ function SignupForm({ signup }) {
     });
     const [formErrors, setFormErrors] = useState([]);
 
-    console.debug(
-        "SignupForm",
-        "signup=", typeof signup,
-        "formData=", formData,
-        "formErrors=", formErrors,
-    );
+    // console.debug(
+    //     "SignupForm",
+    //     "signup=", typeof signup,
+    //     "formData=", formData,
+    //     "formErrors=", formErrors,
+    // );
 
     /** Handle form data changing */
     function handleChange(evt) {

@@ -1,6 +1,9 @@
 import axios from "axios";
 
 const BASE_URL =  process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+// const BASE_URL = "https://recipe-hub-react-a78f14efddee.herokuapp.com"
+const PORT = process.env.BACKEND_PORT
+console.log(process.env);
 
 class RecipeAPI{
     static token;
@@ -9,13 +12,18 @@ class RecipeAPI{
     static async request(endpoint, data = {}, method = "get") {
         console.debug("API Call:", endpoint, data, method);
 
-        const url = `${BASE_URL}/${endpoint}`;
+        const url = `${BASE_URL}/api/${endpoint}`;
         const headers = { Authorization: `Bearer ${RecipeAPI.token}` };
         const params = (method === "get")
             ? data
             : {};
 
+        console.log(url);
+        console.log(headers);
+        console.log(params);
+
         try {
+            // console.log("attempting axios");
             return (await axios({ url, method, data, params, headers })).data;
         } catch (err) {
             console.error("API Error:", err);

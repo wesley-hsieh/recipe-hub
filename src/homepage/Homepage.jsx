@@ -18,7 +18,7 @@ function Homepage(){
     const [errorMessage, setErrorMessage] = useState("");
 
 
-    console.debug("Homepage", "currentUser=", currentUser);
+    // console.debug("Homepage", "currentUser=", currentUser);
 
     /** search function to query based on user's submission*/
     async function search(query){

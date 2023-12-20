@@ -15,7 +15,7 @@ import DatabaseList from "../recipes/DatabaseList";
  * */
 function NavRoutes({login, signup}){
     const { currentUser, recipes, setRecipes } = useContext(UserContext);
-    console.debug("NavRoutes", `login=${typeof login}`, `signup=${typeof signup}`);
+    // console.debug("NavRoutes", `login=${typeof login}`, `signup=${typeof signup}`);
 
     return (
         <Routes>

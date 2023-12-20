@@ -2,6 +2,7 @@ import axios from "axios";
 
 const BASE_URL =  process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 // const BASE_URL = "https://recipe-hub-react-a78f14efddee.herokuapp.com"
+const PORT = process.env.BACKEND_PORT
 console.log(process.env);
 
 class RecipeAPI{
@@ -11,7 +12,7 @@ class RecipeAPI{
     static async request(endpoint, data = {}, method = "get") {
         console.debug("API Call:", endpoint, data, method);
 
-        const url = `${BASE_URL}/api/${endpoint}`;
+        const url = `${BASE_URL}:${PORT}/api/${endpoint}`;
         const headers = { Authorization: `Bearer ${RecipeAPI.token}` };
         const params = (method === "get")
             ? data

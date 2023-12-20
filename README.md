@@ -48,4 +48,5 @@ The data is being sourced by [Edamam's Recipe search API](https://www.edamam.com
 ## Tech stack
 
 The tech stack for this particular project covers React, Node.js/Express, PostgreSQL, HTML5, and CSS3
+The test suite used for this project is [Jest](https://jestjs.io/)
 

@@ -12,15 +12,15 @@ class RecipeAPI{
     static async request(endpoint, data = {}, method = "get") {
         console.debug("API Call:", endpoint, data, method);
 
-        const url = `${BASE_URL}:${PORT}/api/${endpoint}`;
+        const url = `${BASE_URL}/api/${endpoint}`;
         const headers = { Authorization: `Bearer ${RecipeAPI.token}` };
         const params = (method === "get")
             ? data
             : {};
 
-        // console.log(url);
-        // console.log(headers);
-        // console.log(params);
+        console.log(url);
+        console.log(headers);
+        console.log(params);
 
         try {
             // console.log("attempting axios");
